@@ -1,0 +1,35 @@
+doctype html
+html(lang='ko')
+    head 
+        title #{pageTitle} | 흙타
+        link(rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css")
+        link(rel="stylesheet" href="/client/css/home.css")
+        link(rel="stylesheet" href="/client/css/calendar.css")
+        block css
+    body 
+        header 
+            nav.nav 
+                ul 
+                    li 
+                        a(href="/") 흙타
+                    if fakeUser.LoggedIn
+                        li 
+                            a(href="/") 로그아웃
+                    else 
+                        li 
+                            a(href="/login") 로그인
+                    li 
+                        a(href="/") 팀흙타 채용 &rarr;
+            input(placeholder="관심있는 내용을 검색해보세요", type="text", name="keyword")
+
+        main 
+            div
+                block contentMain
+            div.topicBackground
+                block contentSub
+
+    hr
+    include partials/footer.pug
+    block scripts
+    //- 여기는 webpack 링크
+    //- script(src="/assets/js/main.js") 

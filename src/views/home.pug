@@ -1,0 +1,17 @@
+extends base.pug
+include mixins/topicList.pug
+
+block contentMain 
+    include partials/calendar.pug
+
+block contentSub
+    div.topicScript
+        each topic in topicList
+            +topicList(topic)
+    
+
+block scripts
+    script(src="/client/js/calendar.js")
+
+block css 
+    link(rel="stylesheet", href="/client/css/topicList.css") 

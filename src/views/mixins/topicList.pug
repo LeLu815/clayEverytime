@@ -1,0 +1,11 @@
+mixin topicList(topic)
+    div.topic-items
+        div.header
+            h2=topic.name
+            a(href=`/content/${topic.id}`) 더보기 &rarr;
+        div.main
+            ul
+                each list in topic.mainList
+                    li=list
+                else 
+                    li Sorry nothing found.

@@ -1,0 +1,25 @@
+{
+  "name": "ceramictime",
+  "version": "1.0.0",
+  "description": "Let's build ceramic time",
+  "scripts": {
+    "dev": "nodemon --exec babel-node src/sever.js",
+    "assets": "webpack --config webpack.config.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "morgan": "^1.10.0",
+    "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.5",
+    "@babel/node": "^7.20.5",
+    "@babel/preset-env": "^7.20.2",
+    "babel-loader": "^9.1.0",
+    "nodemon": "^2.0.20",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  }
+}

@@ -1,0 +1,34 @@
+/* 746, 348 */
+
+.topicBackground {
+    font-family: "NotoSansR";
+    display: flex;
+    justify-content: start;
+}
+
+.topicScript {
+    display: flex;
+    width: 746px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-items: center;
+}
+
+.topic-items {
+    width: 348px;
+    height: 206px;
+    padding-left: 25px;
+    overflow: hidden
+    /* margin: 4px; */
+    
+}
+
+.header {
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    font-size: 14px;
+    
+}
