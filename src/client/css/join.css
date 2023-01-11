@@ -1,0 +1,11 @@
+.username {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+}
+
+.password2 {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+}

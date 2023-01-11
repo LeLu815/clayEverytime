@@ -12,14 +12,19 @@ html(lang='ko')
                 ul 
                     li 
                         a(href="/") 흙타
+                    li
+                        a(href="/") 팀흙타 채용&rarr;
+                    li 
+                        a(href="/content/upload") 글쓰기 
                     if fakeUser.LoggedIn
                         li 
                             a(href="/") 로그아웃
+                        li 
+                            a(href="http://") 내 정보
                     else 
                         li 
                             a(href="/login") 로그인
-                    li 
-                        a(href="/") 팀흙타 채용 &rarr;
+
             input(placeholder="관심있는 내용을 검색해보세요", type="text", name="keyword")
 
         main 

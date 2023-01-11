@@ -1,0 +1,26 @@
+extends base.pug
+
+block contentMain
+    if errorMessage
+        span=errorMessage
+    form(method="POST")
+        input(placeholder="이름", name="name", type="text", required)
+        input(placeholder="본인 확인 이메일", name="email", type="email", required)
+        div.username
+            input(placeholder="아이디", name="username", type="text", required)
+            button(type="button",  name="usernameCheck") 중복확인
+        input(placeholder="비밀번호", name="password", type="password", id="password", required)
+        div.password2
+            input(placeholder="비밀번호 재확인", name="password2", type="password", id="password2", required, formaction="/client/js/join.js")
+            button(type="submit", name="passwordCheck", id="passwordCheck") 비밀번호 확인
+        input(placeholder="위치(선택)", name="location", type="text", required)
+        input(type="submit", value="가입하기", formaction="/join")
+    hr
+    div
+        a(href="/login") 로그인 &rarr;
+
+block css
+    link(rel="stylesheet", href="/client/css/join.css") 
+
+block scripts 
+    script(src="/client/js/join.js")

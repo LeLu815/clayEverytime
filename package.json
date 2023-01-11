@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "description": "Let's build ceramic time",
   "scripts": {
-    "dev": "nodemon --exec babel-node src/sever.js",
+    "dev": "nodemon --exec babel-node src/init.js",
     "assets": "webpack --config webpack.config.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "express": "^4.18.2",
+    "mongoose": "^6.8.2",
     "morgan": "^1.10.0",
     "pug": "^3.0.2"
   },

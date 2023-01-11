@@ -6,8 +6,31 @@ block contentMain
 
 block contentSub
     div.topicScript
-        each topic in topicList
-            +topicList(topic)
+        div.topic-items
+            div.header
+                h2 흙당근
+                a(href=`/content/blackCarrot`) 더보기 &rarr;
+            +topicList(blackCarrotContents)
+
+        div.topic-items
+            div.header
+                h2 비밀게시판
+                a(href=`/content/secretLounge`) 더보기 &rarr;
+            +topicList(secretContents)
+
+        div.topic-items
+            div.header
+                h2 정보공유방
+                a(href=`/content/blackCarrot`) 더보기 &rarr;
+            +topicList(infoShareContents)
+
+        div.topic-items
+            div.header
+                h2 홍성현<이인
+                a(href=`/content/blackCarrot`) 더보기 &rarr;
+            +topicList(blackCarrotContents)
+
+
     
 
 block scripts
