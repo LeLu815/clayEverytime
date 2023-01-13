@@ -6,6 +6,8 @@ import globalRouter from "./routers/globalRouter";
 import contentRouter from "./routers/contentsRouter";
 import { runtime } from "webpack";
 import { localsMiddleware } from "./middleware";
+import apiRouter from "./routers/apiRouter";
+import bodyParser from "body-parser";
 
 const app = express();
 
@@ -23,6 +25,7 @@ app.use(session({
     resave:true,
     saveUninitialized:true,
 }));
+app.use(bodyParser.json())
 
 app.use(localsMiddleware);
 app.use("/client", express.static("src/client"));
@@ -30,5 +33,6 @@ app.use("/assets", express.static("assets"));
 app.use('/', globalRouter);
 app.use("/users", userRouter);
 app.use("/content", contentRouter);
+app.use("/api", apiRouter);
 
 export default app;

@@ -1,27 +1,47 @@
-import User from "../../models/User"
-import bcrypt from "bcrypt";
-
 const password = document.getElementById("password");
 const password2 = document.getElementById("password2");
 const passwordCheck = document.getElementById("passwordCheck");
 const submitBtn = document.getElementById("submitBtn");
-const usernameCheck = document.getElementById("usernameCheck");
 const usernameMsg = document.getElementById("usernameMsg");
+const username = document.getElementById("username");
 
 // alert("connected");
 let passwordInnerText;
 let ok = false;
 
+username.addEventListener("keyup", async function () {
+    const id = username.value;
+    const idOk = id.replace(/(\s*)/g,'');
+    let url =  Boolean(idOk) ? `/api/join/${id}/idChecks` : false;
+    console.log(`id:${id}, idOk:${idOk}`);
+    console.log(url);
 
-usernameCheck.addEventListener("click", async function () {
-    const id = usernameCheck.value;
-    const user = await User.findOne({id});
-    if (user) {
-        usernameMsg.innerText = "이미 존재하는 아이디입니다."
+    if(url) {
+        fetch(url, {
+            method: "POST",
+        });
+        
+        const response = await fetch(url);
+        const data = await response.json();
+        ok = Boolean(data.isExist);
+        console.log(ok);
+        if (ok) {
+            usernameMsg.innerText = "이미 사용중인 아이디입니다."
+        } else {
+            usernameMsg.innerText = "사용가능한 아이디입니다."
+        }
     } else {
-        ok = true;
-        usernameMsg.innerText = "사용가능한 아이디입니다."
+        usernameMsg.innerText = "아이디를 입력하세요.";
     }
+    
+    // const id = usernameCheck.value;
+    // const user = await User.findOne({id});
+    // if (user) {
+    //     usernameMsg.innerText = "이미 존재하는 아이디입니다."
+    // } else {
+    //     ok = true;
+    //     usernameMsg.innerText = "사용가능한 아이디입니다."
+    // }
 });
 
 password.addEventListener("keyup", function(){
@@ -31,7 +51,7 @@ password2.addEventListener("keyup", function(){
     if (password2.value === passwordInnerText) {
         passwordCheck.style.visibility = "visible";
         passwordCheck.innerText = "일치합니다."
-        submitBtn.disabled = ok ? false : true;
+        submitBtn.disabled = !ok ? false : true;
     } else if (password2.value === "") {
         passwordCheck.style.visibility = "hidden";
         submitBtn.disabled = true;

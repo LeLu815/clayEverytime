@@ -6,10 +6,8 @@ block contentMain
     form(method="POST")
         input(placeholder="이름", name="name", type="text", required)
         input(placeholder="본인 확인 이메일", name="email", type="email", required)
-        div.username
-            span(id="usernameMsg")
-            input(placeholder="아이디", name="username", type="text", required)
-            button(type="button",  name="usernameCheck", id="usernameCheck") 중복확인
+        span(id="usernameMsg")
+        input(placeholder="아이디", name="username", type="text", required, id="username")
         input(placeholder="비밀번호", name="password", type="password", id="password", required)
         div.password2
             input(placeholder="비밀번호 재확인", name="password2", type="password", id="password2", required)

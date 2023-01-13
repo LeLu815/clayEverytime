@@ -1,6 +1,8 @@
 import User from "../models/User";
 import bcrypt from "bcrypt";
 
+let isExist;
+
 const fakeUser = {
     username : "Leein",
     LoggedIn : false,
@@ -76,7 +78,17 @@ export const postLogin = async (req, res) => {
     return res.redirect("/");
 };
 
+export const idCheckSend = (req, res) => {
+    return res.json(isExist);
+}
+
+export const idCheck = async (req, res) => {
+    const {id} = req.params;
+    isExist = await await User.findOne({username:id});
+    const isObject = isExist instanceof Object;
+    isExist = isObject ? isExist : {isExist};
+    // console.log(id, isExist);
+}
 
 export const logout = (req, res) => res.send("Log out");
 
-export const see = (req, res) => res.send("See User");
