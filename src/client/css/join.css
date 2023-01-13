@@ -6,6 +6,6 @@
 
 .password2 {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: fit-content;
 }

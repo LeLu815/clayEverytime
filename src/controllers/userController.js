@@ -12,10 +12,44 @@ export const getJoin = (req, res) => {
     return res.render("join", {fakeUser});
 };
 
-export const postJoin = (req, res) => {
+export const postJoin = async (req, res) => {
     const {name, email, username, password, password2, location} = req.body;
-    
-
+    const pageTitle = "Join";
+    if (password !== password2) {
+        return res.status(400).render("join", {
+            pageTitle,
+            errorMessage: "비밀번호가 일치하지 않습니다.",
+        });
+    }
+    // const exists = await User.exists({ $or: [{username, email}] });
+    const usernameExist = await User.exists({username});
+    const emailExist = await User.exists({email});
+    if(usernameExist) {
+        return res.status(400).render("join", {
+            pageTitle,
+            errorMessage: "존재하는 아이디입니다.",
+        });
+    } else if (emailExist) {
+        return res.status(400).render("join", {
+            pageTitle,
+            errorMessage: "존재하는 이메일입니다.",
+        });
+    }
+    try {
+        await User.create({
+            name,
+            email, 
+            username, 
+            password,
+            location,
+        });
+        return res.redirect("/login");
+    } catch(error) {
+        return res.status(400).render("join", {
+            pageTitle : "Upload",
+            errorMessage : error._message,
+        });
+    }
 };
 
 export const remove = (req, res) => res.send("Remove User");
@@ -25,7 +59,7 @@ export const getLogin = (req, res) => {
 };
 export const postLogin = async (req, res) => {
     const {username, password} = req.body;
-    const user = await User.findOne({username}) ;
+    const user = await User.findOne({username});
     if (!user) {
         return res.status(404).render("login", {
             errorMessage: "잘못된 아이디입니다.",
@@ -37,6 +71,8 @@ export const postLogin = async (req, res) => {
             errorMessage: "잘못된 비밀번호입니다."
         });
     }
+    req.session.LoggedIn = true;
+    req.session.user = user;
     return res.redirect("/");
 };
 

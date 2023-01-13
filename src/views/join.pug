@@ -7,14 +7,15 @@ block contentMain
         input(placeholder="이름", name="name", type="text", required)
         input(placeholder="본인 확인 이메일", name="email", type="email", required)
         div.username
+            span(id="usernameMsg")
             input(placeholder="아이디", name="username", type="text", required)
-            button(type="button",  name="usernameCheck") 중복확인
+            button(type="button",  name="usernameCheck", id="usernameCheck") 중복확인
         input(placeholder="비밀번호", name="password", type="password", id="password", required)
         div.password2
-            input(placeholder="비밀번호 재확인", name="password2", type="password", id="password2", required, formaction="/client/js/join.js")
-            button(type="submit", name="passwordCheck", id="passwordCheck") 비밀번호 확인
+            input(placeholder="비밀번호 재확인", name="password2", type="password", id="password2", required)
+            span(id="passwordCheck")
         input(placeholder="위치(선택)", name="location", type="text", required)
-        input(type="submit", value="가입하기", formaction="/join")
+        input(type="submit", value="가입하기", id="submitBtn", disabled)
     hr
     div
         a(href="/login") 로그인 &rarr;
