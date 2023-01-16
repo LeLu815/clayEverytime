@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import session from "express-session";
+import MongoStore from "connect-mongo";
 import userRouter from "./routers/contentsRouter";
 import globalRouter from "./routers/globalRouter";
 import contentRouter from "./routers/contentsRouter";
@@ -20,12 +21,15 @@ app.use(logger);
 app.use(express.urlencoded({extended:true}));
 
 // 전역적으로 locals 변수를 사용해서 웹사이트 이름을 바꿀 수 있다.
+// MongoStore 을 통하여 세션을 db 에 저장할 수 있다. : 서버 재부팅을 해도 세션정보가 날아가지 않기 때문에 로그인 상태를 유지할 수 있다.
+// 원래는 collections 안에 sessions 가 없었는데 해당 모듈 사용 후부터 생기게 된다. 
 app.use(session({
-    secret:"hello",
+    secret:process.env.COOKIE_SECRET,
     resave:true,
     saveUninitialized:true,
+    store: MongoStore.create({mongoUrl: process.env.DB_URL}),
 }));
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 app.use(localsMiddleware);
 app.use("/client", express.static("src/client"));

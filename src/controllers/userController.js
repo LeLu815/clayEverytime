@@ -73,7 +73,7 @@ export const postLogin = async (req, res) => {
             errorMessage: "잘못된 비밀번호입니다."
         });
     }
-    req.session.LoggedIn = true;
+    req.session.loggedIn = true;
     req.session.user = user;
     return res.redirect("/");
 };
