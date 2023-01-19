@@ -5,7 +5,8 @@ block contentMain
         span=errorMessage
     form(method="POST")
         input(placeholder="이름", name="name", type="text", required, value=`${name ? name : ""}`)
-        input(placeholder="본인 확인 이메일", name="email", type="email", required, value=`${email ? email : ""}`)
+        span(id="emailMsg")
+        input(placeholder="본인 확인 이메일", name="email", type="email", required, value=`${email ? email : ""}`, id="email")
         span(id="usernameMsg")
         input(placeholder="아이디", name="username", type="text", required, id="username")
         input(placeholder="비밀번호", name="password", type="password", id="password", required)

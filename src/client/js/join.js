@@ -4,17 +4,51 @@ const passwordCheck = document.getElementById("passwordCheck");
 const submitBtn = document.getElementById("submitBtn");
 const usernameMsg = document.getElementById("usernameMsg");
 const username = document.getElementById("username");
+const email = document.getElementById("email");
+const emailMsg = document.getElementById("emailMsg");
 
 // alert("connected");
 let passwordInnerText;
 let ok = false;
+let okay = false;
+
+function validEmailCheck(email){
+    var pattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+    return (email.match(pattern)!=null)
+}
+
+email.addEventListener("keyup", async function () {
+    const internetMail = email.value.replace(/(\s*)/g,'');
+    let url = Boolean(internetMail) ? `/api/join/${internetMail}/emailChecks` : false;
+
+    if(url) {
+        if (!validEmailCheck(internetMail)) {
+            emailMsg.innerText = "올바른 이메일 주소를 입력해주세요."
+            return;
+        }
+        // 먼저 포스트로 보내고 다시 get으로 정보를 받아야한다.
+        fetch(url, {
+            method: "POST",
+        });
+
+        const data = await fetch(url);
+        const response = await data.json();
+        okay = Boolean(response.isExistEmail);
+
+        if (okay) {
+            emailMsg.innerText = "이미 사용중인 이메일입니다."
+        } else {
+            emailMsg.innerText = "사용가능한 이메일입니다."
+        }          
+    } else {
+        emailMsg.innerText = "이메일을 입력하세요."
+    }
+});
 
 username.addEventListener("keyup", async function () {
     const id = username.value;
     const idOk = id.replace(/(\s*)/g,'');
     let url =  Boolean(idOk) ? `/api/join/${id}/idChecks` : false;
-    console.log(`id:${id}, idOk:${idOk}`);
-    console.log(url);
 
     if(url) {
         fetch(url, {
@@ -23,8 +57,7 @@ username.addEventListener("keyup", async function () {
         
         const response = await fetch(url);
         const data = await response.json();
-        ok = Boolean(data.isExist);
-        console.log(ok);
+        ok = Boolean(data.isExistId);
         if (ok) {
             usernameMsg.innerText = "이미 사용중인 아이디입니다."
         } else {
@@ -33,15 +66,6 @@ username.addEventListener("keyup", async function () {
     } else {
         usernameMsg.innerText = "아이디를 입력하세요.";
     }
-    
-    // const id = usernameCheck.value;
-    // const user = await User.findOne({id});
-    // if (user) {
-    //     usernameMsg.innerText = "이미 존재하는 아이디입니다."
-    // } else {
-    //     ok = true;
-    //     usernameMsg.innerText = "사용가능한 아이디입니다."
-    // }
 });
 
 password.addEventListener("keyup", function(){

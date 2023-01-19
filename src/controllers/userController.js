@@ -3,8 +3,8 @@ import bcrypt from "bcrypt";
 import { config } from "dotenv";
 import fetch from "cross-fetch";
 
-let isExist;
-
+let isExistId;
+let isExistEmail;
 
 
 export const edit = (req, res) => res.send("Edit User");
@@ -82,15 +82,26 @@ export const postLogin = async (req, res) => {
 };
 
 export const idCheckSend = (req, res) => {
-    return res.json(isExist);
-}
+    return res.json(isExistId);
+};
 
 export const idCheck = async (req, res) => {
     const {id} = req.params;
-    isExist = await await User.findOne({username:id});
-    const isObject = isExist instanceof Object;
-    isExist = isObject ? isExist : {isExist};
-    // console.log(id, isExist);
+    isExistId = await User.findOne({username:id});
+    const isObject = isExistId instanceof Object;
+    isExistId = isObject ? isExistId : {isExistId};
+};
+
+export const emailCheckSend = (req, res) => {
+    return res.json(isExistEmail);
+}
+
+export const emailCheck = async (req, res) => {
+    const {email} = req.params;
+    console.log("email :",email);
+    isExistEmail = await User.findOne({email});
+    const isObject = isExistEmail instanceof Object;
+    isExistEmail = isObject ? isExistEmail : {isExistEmail};
 }
 
 export const logout = (req, res) => {
@@ -117,7 +128,6 @@ export const getKkt = async (req, res) => {
             },
         })
     ).json();
-    console.log(userData.kakao_account.email);
     const email = userData.kakao_account.email;
     const existingEmail = await User.findOne({email});
     if (!Boolean(email)) {
@@ -149,4 +159,4 @@ export const getKkt = async (req, res) => {
         name :userData.kakao_account.profile.nickname,
         email,
     });
-}
+};
