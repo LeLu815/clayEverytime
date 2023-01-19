@@ -8,7 +8,7 @@ block contentMain
         input(placeholder="비밀번호", name="password", type="password", required)
         input(type="submit", value="Login")
         br
-        a(href="https://github.com/login/oauth/authorize?client_id=9fac726866be2ff14f36&allow_signup=false") 카카오톡 로그인  &rarr;
+        a(href=`https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`) 카카오톡 로그인  &rarr;
     hr
     div
         a(href="/join") 회원가입 &rarr;

@@ -2,7 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import session from "express-session";
 import MongoStore from "connect-mongo";
-import userRouter from "./routers/contentsRouter";
+import userRouter from "./routers/userRouter";
 import globalRouter from "./routers/globalRouter";
 import contentRouter from "./routers/contentsRouter";
 import { runtime } from "webpack";
