@@ -10,7 +10,10 @@ let isExistEmail;
 export const edit = (req, res) => res.send("Edit User");
 
 export const getJoin = (req, res) => {
-    return res.render("join");
+    return res.render("join", {
+        invisible : "none",
+        invisible : "",
+    });
 };
 
 export const postJoin = async (req, res) => {
@@ -20,6 +23,7 @@ export const postJoin = async (req, res) => {
         return res.status(400).render("join", {
             pageTitle,
             errorMessage: "비밀번호가 일치하지 않습니다.",
+            invisible : "",
         });
     }
     // const exists = await User.exists({ $or: [{username, email}] });
@@ -34,6 +38,7 @@ export const postJoin = async (req, res) => {
         return res.status(400).render("join", {
             pageTitle,
             errorMessage: "존재하는 이메일입니다.",
+            invisible : "",
         });
     }
     try {
@@ -49,6 +54,7 @@ export const postJoin = async (req, res) => {
         return res.status(400).render("join", {
             pageTitle : "Upload",
             errorMessage : error._message,
+            invisible : "",
         });
     }
 };
@@ -97,11 +103,12 @@ export const emailCheckSend = (req, res) => {
 }
 
 export const emailCheck = async (req, res) => {
-    const {email} = req.params;
-    console.log("email :",email);
-    isExistEmail = await User.findOne({email});
+    console.log(req.params);
+    const {id} = req.params;
+    isExistEmail = await User.findOne({email:id});
     const isObject = isExistEmail instanceof Object;
     isExistEmail = isObject ? isExistEmail : {isExistEmail};
+    return res.status(200);
 }
 
 export const logout = (req, res) => {
@@ -128,28 +135,49 @@ export const getKkt = async (req, res) => {
             },
         })
     ).json();
+
     const email = userData.kakao_account.email;
-    const existingEmail = await User.findOne({email});
     if (!Boolean(email)) {
         return res.render("join", {
             name :userData.kakao_account.profile.nickname,
+            invisible : "none",
         });
     }
+    const existingEmail = await User.findOne({email});
     const username = email.split("@")[0];
     const existingUsername = await User.findOne({username});
-
+    if (!Boolean(existingEmail)) {
+        if(!Boolean(existingUsername)) {
+            console.log("자 만든다~");
+            const user = await User.create({
+                socialOnly : true,
+                email,
+                name : userData.kakao_account.profile.nickname,
+                username,
+                password:"",
+            });
+            req.session.loggedIn = true;
+            req.session.user = user;
+            return res.redirect("/");
+        }
+        return res.render("join", {
+            name :userData.kakao_account.profile.nickname,
+            email,
+            invisible : "none",
+        })
+    }
     if (existingEmail._id === existingUsername._id) {
         req.session.loggedIn = true;
         req.session.user = existingUsername;
         return res.redirect("/");
     }
-
-    if (!Boolean(existingUsername)) {
+    if (!Boolean(existingUsername) && !Boolean(existingEmail)) {
         const user = await User.create({
             socialOnly : true,
             email,
             name : userData.kakao_account.profile.nickname,
             username,
+            password: "",
         });
         req.session.loggedIn = true;
         req.session.user = user;
@@ -158,5 +186,6 @@ export const getKkt = async (req, res) => {
     return res.render("join", {
         name :userData.kakao_account.profile.nickname,
         email,
+        invisible : "none",
     });
 };

@@ -6,11 +6,18 @@ const usernameMsg = document.getElementById("usernameMsg");
 const username = document.getElementById("username");
 const email = document.getElementById("email");
 const emailMsg = document.getElementById("emailMsg");
+const invisiblePw = document.getElementById("invisiblePw");
 
 // alert("connected");
 let passwordInnerText;
 let ok = false;
-let okay = false;
+let okayEmail = false;
+let okayId = false;
+let okPw = false;
+
+if (invisiblePw.style.display === "none") {
+    okPw = true;
+}
 
 function validEmailCheck(email){
     var pattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
@@ -27,22 +34,27 @@ email.addEventListener("keyup", async function () {
             return;
         }
         // 먼저 포스트로 보내고 다시 get으로 정보를 받아야한다.
-        fetch(url, {
-            method: "POST",
-        });
+        const settings = {
+            method: 'POST',
+        };
+        fetch(url, settings);
+
 
         const data = await fetch(url);
         const response = await data.json();
-        okay = Boolean(response.isExistEmail);
-
-        if (okay) {
+        
+        if (response.isExistEmail !== null) {
             emailMsg.innerText = "이미 사용중인 이메일입니다."
+            okayEmail = false;
         } else {
             emailMsg.innerText = "사용가능한 이메일입니다."
+            okayEmail = true;
         }          
     } else {
         emailMsg.innerText = "이메일을 입력하세요."
+        okayEmail = false;
     }
+    submitBtn.disabled = okayEmail && okayId && okPw ? false : true;
 });
 
 username.addEventListener("keyup", async function () {
@@ -57,15 +69,18 @@ username.addEventListener("keyup", async function () {
         
         const response = await fetch(url);
         const data = await response.json();
-        ok = Boolean(data.isExistId);
-        if (ok) {
+        if (data.isExistId !== null) {
             usernameMsg.innerText = "이미 사용중인 아이디입니다."
+            okayId = false;
         } else {
             usernameMsg.innerText = "사용가능한 아이디입니다."
+            okayId = true;
         }
     } else {
         usernameMsg.innerText = "아이디를 입력하세요.";
+        okayId = false;
     }
+    submitBtn.disabled = okayEmail && okayId && okPw ? false : true;
 });
 
 password.addEventListener("keyup", function(){
@@ -75,13 +90,16 @@ password2.addEventListener("keyup", function(){
     if (password2.value === passwordInnerText) {
         passwordCheck.style.visibility = "visible";
         passwordCheck.innerText = "일치합니다."
-        submitBtn.disabled = !ok ? false : true;
+        okPw = true;
+        submitBtn.disabled = okayEmail && okayId && okPw ? false : true;
     } else if (password2.value === "") {
         passwordCheck.style.visibility = "hidden";
-        submitBtn.disabled = true;
+        okPw = false;
+        submitBtn.disabled = okayEmail && okayId && okPw ? false : true;
     } else {
         passwordCheck.style.visibility = "visible";
         passwordCheck.innerText = "일치하지 않습니다."
-        submitBtn.disabled = true;
+        okPw = false;
+        submitBtn.disabled = okayEmail && okayId && okPw ? false : true;
     }
 });
