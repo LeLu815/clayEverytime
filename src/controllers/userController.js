@@ -6,13 +6,20 @@ import fetch from "cross-fetch";
 let isExistId;
 let isExistEmail;
 
+export const getEdit = (req, res) => {
+    res.render("edit-profile", {
+        pageTitle:"edit-profile"
+    });
+}
 
-export const edit = (req, res) => res.send("Edit User");
+export const postEdit = (req, res) => {
+
+}
 
 export const getJoin = (req, res) => {
     return res.render("join", {
-        invisible : "none",
         invisible : "",
+        pageTitle:"Join",
     });
 };
 
@@ -116,6 +123,8 @@ export const logout = (req, res) => {
     return res.redirect("/");
 };
 
+
+
 export const getKkt = async (req, res) => {
     const permissionCode = req.query.code;
     const uri = "https://kauth.kakao.com/oauth/token";
@@ -138,6 +147,7 @@ export const getKkt = async (req, res) => {
 
     const email = userData.kakao_account.email;
     if (!Boolean(email)) {
+        console.log("여기1");
         return res.render("join", {
             name :userData.kakao_account.profile.nickname,
             invisible : "none",
@@ -160,13 +170,15 @@ export const getKkt = async (req, res) => {
             req.session.user = user;
             return res.redirect("/");
         }
+        console.log("여기2");
         return res.render("join", {
             name :userData.kakao_account.profile.nickname,
             email,
             invisible : "none",
         })
     }
-    if (existingEmail._id === existingUsername._id) {
+
+    if (existingEmail._id.toString() === existingUsername._id.toString()) {
         req.session.loggedIn = true;
         req.session.user = existingUsername;
         return res.redirect("/");
@@ -183,9 +195,10 @@ export const getKkt = async (req, res) => {
         req.session.user = user;
         return res.redirect("/");
     }
+
+    // 카카오톡 로그인 시도시 카카오메일이 이미 사용중이면 사용중 경고알람을 보내고 계정찾기 페이지로 넘겨야 한다.
     return res.render("join", {
         name :userData.kakao_account.profile.nickname,
-        email,
         invisible : "none",
     });
 };
