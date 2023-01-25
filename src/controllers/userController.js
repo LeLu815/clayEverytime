@@ -2,6 +2,7 @@ import User from "../models/User";
 import bcrypt from "bcrypt";
 import { config } from "dotenv";
 import fetch from "cross-fetch";
+import session from "express-session";
 
 let isExistId;
 let isExistEmail;
@@ -12,8 +13,49 @@ export const getEdit = (req, res) => {
     });
 }
 
-export const postEdit = (req, res) => {
+export const postEdit = async (req, res) => {
+    const {
+        session :{ 
+            user  :{
+                _id
+            }
+        },
+        body:{
+            name,
+            username,
+            email,
+        }
+    } = req;
 
+    let shouldResave = [];
+
+    // 비교할 값들이 병렬적이다.
+    const checkIsChanged = (attribute) => {
+        return req.session.user[attribute] === req.body[attribute] ? false : attribute;
+    }
+    const checkDuplicate = async (attribute) => {
+        const userInfo = req.body[attribute];
+        const isExist = await User.exists({[attribute]:userInfo});
+        return isExist ? isExist : false;
+    }
+
+    for (const property in req.body) {
+        if (checkIsChanged(property)) {
+            shouldResave.push(await checkDuplicate(property));
+        }
+    }
+    const final = shouldResave.filter(boolean => boolean === true);
+
+    if (final.length === 0) {
+        const updatedUser = await User.findByIdAndUpdate(_id, {
+            name,
+            username,
+            email,
+        }, {new:true});
+        req.session.user = updatedUser;
+    }
+
+    res.redirect("/users/edit");
 }
 
 export const getJoin = (req, res) => {
