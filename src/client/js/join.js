@@ -33,17 +33,12 @@ email.addEventListener("keyup", async function () {
             emailMsg.innerText = "올바른 이메일 주소를 입력해주세요."
             return;
         }
-        // 먼저 포스트로 보내고 다시 get으로 정보를 받아야한다.
-        const settings = {
-            method: 'POST',
-        };
-        fetch(url, settings);
-
-
-        const data = await fetch(url);
-        const response = await data.json();
+        const response = await fetch(url, {
+            method : "POST",
+        });
+        const data = await response.json();
         
-        if (response.isExistEmail !== null) {
+        if (data.isExistEmail !== null) {
             emailMsg.innerText = "이미 사용중인 이메일입니다."
             okayEmail = false;
         } else {
@@ -63,12 +58,11 @@ username.addEventListener("keyup", async function () {
     let url =  Boolean(idOk) ? `/api/join/${id}/idChecks` : false;
 
     if(url) {
-        fetch(url, {
+        const response = await fetch(url, {
             method: "POST",
         });
-        
-        const response = await fetch(url);
         const data = await response.json();
+
         if (data.isExistId !== null) {
             usernameMsg.innerText = "이미 사용중인 아이디입니다."
             okayId = false;

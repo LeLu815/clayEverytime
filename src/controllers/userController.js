@@ -4,9 +4,6 @@ import { config } from "dotenv";
 import fetch from "cross-fetch";
 import session from "express-session";
 
-let isExistId;
-let isExistEmail;
-
 export const getEdit = (req, res) => {
     res.render("edit-profile", {
         pageTitle:"edit-profile"
@@ -56,6 +53,18 @@ export const postEdit = async (req, res) => {
     }
 
     res.redirect("/users/edit");
+}
+
+export const getChangePassword = (req, res) => {
+    
+    return res.render("change-password", {
+        pageTitle:"Change-password"
+    });
+}
+export const postChangePassword = (req, res) => {
+    return res.render("change-password", {
+        pageTitle:"Change-password"
+    });
 }
 
 export const getJoin = (req, res) => {
@@ -118,8 +127,10 @@ export const getLogin = (req, res) => {
     });
 };
 export const postLogin = async (req, res) => {
+    
     const {username, password} = req.body;
     const user = await User.findOne({username, socialOnly:false});
+    console.log(user);
     if (!user) {
         return res.status(404).render("login", {
             errorMessage: "잘못된 아이디입니다.",
@@ -136,36 +147,26 @@ export const postLogin = async (req, res) => {
     return res.redirect("/");
 };
 
-export const idCheckSend = (req, res) => {
+export const idCheck = async (req, res) => {
+    const {id} = req.params;
+    let isExistId = await User.findOne({username:id});
+    const isObject = isExistId instanceof Object;
+    isExistId = isObject ? isExistId : {isExistId};
     return res.json(isExistId);
 };
 
-export const idCheck = async (req, res) => {
-    const {id} = req.params;
-    isExistId = await User.findOne({username:id});
-    const isObject = isExistId instanceof Object;
-    isExistId = isObject ? isExistId : {isExistId};
-};
-
-export const emailCheckSend = (req, res) => {
-    return res.json(isExistEmail);
-}
-
 export const emailCheck = async (req, res) => {
-    console.log(req.params);
     const {id} = req.params;
-    isExistEmail = await User.findOne({email:id});
+    let isExistEmail = await User.findOne({email:id});
     const isObject = isExistEmail instanceof Object;
     isExistEmail = isObject ? isExistEmail : {isExistEmail};
-    return res.status(200);
+    return res.json(isExistEmail);
 }
 
 export const logout = (req, res) => {
     req.session.destroy();
     return res.redirect("/");
 };
-
-
 
 export const getKkt = async (req, res) => {
     const permissionCode = req.query.code;
