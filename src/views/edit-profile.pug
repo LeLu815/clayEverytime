@@ -2,9 +2,9 @@ extends base.pug
 
 block contentMain 
     form(method="POST")
-        input(type="password", name="name", placeholder="이름", required, value=loggedInUser.name)
-        input(type="password", name="username", placeholder="아이디", required, value=loggedInUser.username)
-        input(type="password", name="email", placeholder="이메일", required, value=loggedInUser.email)
+        input(type="text", name="name", placeholder="이름", required, value=loggedInUser.name)
+        input(type="text", name="username", placeholder="아이디", required, value=loggedInUser.username)
+        input(type="text", name="email", placeholder="이메일", required, value=loggedInUser.email)
         input(type="submit", value="적용")
         if !loggedInUser.socialOnly 
             hr

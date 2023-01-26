@@ -27,6 +27,6 @@ oldPassword.addEventListener("keyup", function(){
         submit.disabled = true;
     } else {
         ok = true;
-        submit.disabled = newPassword.value === newPassword2.value ? false : true;
+        submit.disabled = newPassword.value === newPassword2.value && newPassword.value !== "" ? false : true;
     }
 });
