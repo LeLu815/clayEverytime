@@ -1,17 +1,14 @@
 extends base.pug
 
 block contentMain
-    h4 내용 수정(임시)
-    form(method="POST")
-        select(name="contentType" value=content.contentType)
-            option(value="0" disabled) 게시판을 선택해 주세요.        
+    form(method="POST", enctype="multipart/form-data")
+        select(name="contentType" required)
+            option(value="" selected disabled hidden) 게시판을 선택해 주세요.        
             option(value="1") 흙당근
             option(value="2") 비밀게시판
             option(value="3") 정보공유
-
         input(placeholder="제목" required type="text" name="title" value=content.title)
-        //- 이미지파일 아직 못만들었음
-        input(placeholder="이미지 삽입" required type="text" name="image" )
-        textarea(placeholder="내용을 기입해 주세요." name="description" cols="10" rows="30" type="text" required) #{content.description}
+        input(placeholder="이미지 삽입" type="file" name="image", id="image", accept="image/*")
+        textarea(placeholder="내용을 기입해 주세요." name="description" cols="10" rows="10" type="text" required) #{content.description}
         //- input(placeholder="Description", required, type="text", name="description")
         input(type="submit" value="수정")

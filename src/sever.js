@@ -32,8 +32,10 @@ app.use(session({
 app.use(bodyParser.json());
 
 app.use(localsMiddleware);
+// express.static() 을 사용하는 이유는 별도의 라우터를 만들지 않고도 해당 url을 개설해주는 역할을 한다.
 app.use("/client", express.static("src/client"));
 app.use("/assets", express.static("assets"));
+app.use("/uploads", express.static("uploads"));
 app.use('/', globalRouter);
 app.use("/users", userRouter);
 app.use("/content", contentRouter);

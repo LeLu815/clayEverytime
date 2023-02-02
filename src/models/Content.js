@@ -12,8 +12,14 @@ const contentSchema = mongoose.Schema({
         default:Date.now
     },
     meta: {
-        views : Number,
+        views: Number,
         likes: Number,
+    },
+    contentImage : {type:String},
+    owner:{
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: "User",
     },
 });
 

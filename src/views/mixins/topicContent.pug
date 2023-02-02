@@ -10,6 +10,6 @@ mixin topicContent(content)
             p 
                 a(href=`http:/content/secretLounge/${content.id}`) 작성자 정보 넣어야함 
             div 
-                a(href="http://") #{content.meta.views}
+                a(href=`http:/content/secretLounge/${content.id}`) #{content.meta.views}
                 a(href="http://") #{content.meta.likes}
-                a(href="http://") 댓글수
+                a(href=`http:/content/secretLounge/${content.id}`) 댓글수

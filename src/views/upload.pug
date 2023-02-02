@@ -1,15 +1,16 @@
 extends base.pug
 
 block contentMain
-        form(method="POST")
+        form(method="POST", enctype="multipart/form-data")
             select(name="contentType")
                 option(value="0") 게시판을 선택해 주세요.        
                 option(value="1") 흙당근
                 option(value="2") 비밀게시판
                 option(value="3") 정보공유
             input(placeholder="제목", required, type="text", name="title")
-            input(placeholder="이미지 삽입", required, type="text", name="image")
-            textarea(placeholder="내용을 기입해 주세요.", name="description", cols="10", rows="30", required, type="text",)
+            label(for="image") 이미지 삽입
+            input(required, type="file", name="image", accept="image/*", id="image")
+            textarea(placeholder="내용을 기입해 주세요.", name="description", cols="10", rows="10", required, type="text",)
             //- input(placeholder="Description", required, type="text", name="description")
 
             input(type="submit", value="게시글 업로드")

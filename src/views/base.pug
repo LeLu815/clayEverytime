@@ -20,7 +20,7 @@ html(lang='ko')
                         li 
                             a(href="/users/logout") 로그아웃
                         li 
-                            a(href="http://") 내 정보
+                            a(href=`/users/${loggedInUser._id}`) 내 정보
                     else 
                         li 
                             a(href="/login") 로그인

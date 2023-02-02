@@ -2,9 +2,19 @@ import User from "../models/User";
 import bcrypt from "bcrypt";
 import { config } from "dotenv";
 import fetch from "cross-fetch";
-import session from "express-session";
+
+
+export const see = async (req, res) => {
+    const {id} = req.params;
+    const user = await User.findById(id);
+    if(!user) {
+        return res.status(404).render("404");
+    }
+    return res.render("profile", {pageTitle: "User Profile", user});
+}
 
 export const getEdit = (req, res) => {
+    console.log(req.session.user);
     res.render("edit-profile", {
         pageTitle:"edit-profile"
     });
@@ -21,8 +31,11 @@ export const postEdit = async (req, res) => {
             name,
             username,
             email,
-        }
+        }, 
+        file,
     } = req;
+
+
 
     let shouldResave = [];
 
@@ -43,11 +56,13 @@ export const postEdit = async (req, res) => {
     }
     const final = shouldResave.filter(boolean => boolean === true);
 
+    // 세션에 있는 profileImage 를 가져와야 하는데 현재 없는 상태
     if (final.length === 0) {
         const updatedUser = await User.findByIdAndUpdate(_id, {
             name,
             username,
             email,
+            profileImage: file ? file.path : "",
         }, {new:true});
         req.session.user = updatedUser;
     }
@@ -67,8 +82,9 @@ export const postChangePassword = async (req, res) => {
         },
         body:{
             oldPassword, newPassword, newPassword2,
-        }
+        },
     } = req;
+
 
     const user = await User.findById(_id);
     const ok = await bcrypt.compare(oldPassword, user.password);
@@ -86,7 +102,7 @@ export const postChangePassword = async (req, res) => {
     }
     user.password = newPassword;
     await user.save();
-    
+
     req.session.destroy();
     return res.redirect('/login');
 }
@@ -144,17 +160,16 @@ export const postJoin = async (req, res) => {
 export const remove = (req, res) => res.send("Remove User");
 
 export const getLogin = (req, res) => {
-
     return res.render("login", {
         REST_API_KEY: process.env.REST_API_KEY,
         REDIRECT_URI: process.env.REDIRECT_URI,
     });
 };
 export const postLogin = async (req, res) => {
-    
     const {username, password} = req.body;
+
     const user = await User.findOne({username, socialOnly:false});
-    console.log(user);
+    const user2 = await User.findOne({username});
     if (!user) {
         return res.status(404).render("login", {
             errorMessage: "잘못된 아이디입니다.",
@@ -214,7 +229,6 @@ export const getKkt = async (req, res) => {
 
     const email = userData.kakao_account.email;
     if (!Boolean(email)) {
-        console.log("여기1");
         return res.render("join", {
             name :userData.kakao_account.profile.nickname,
             invisible : "none",
@@ -225,7 +239,6 @@ export const getKkt = async (req, res) => {
     const existingUsername = await User.findOne({username});
     if (!Boolean(existingEmail)) {
         if(!Boolean(existingUsername)) {
-            console.log("자 만든다~");
             const user = await User.create({
                 socialOnly : true,
                 email,
@@ -237,7 +250,6 @@ export const getKkt = async (req, res) => {
             req.session.user = user;
             return res.redirect("/");
         }
-        console.log("여기2");
         return res.render("join", {
             name :userData.kakao_account.profile.nickname,
             email,
