@@ -10,6 +10,12 @@ contentLikes.addEventListener("click", async function() {
     }
     const response = await fetch(`/api/content/${id}/likes`);
     const data = await response.json();
+    if (data.isLoggedIn === false) {
+        contentLikes.innerText = data.counts;
+        alert("로그인이 필요합니다.")
+    } else if (data === null) {
+        alert("삭제된 컨텐츠 입니다.")
+    }
     console.log(data, Number(contentLikes.innerText));
     if (Number(data) < Number(contentLikes.innerText)) {
         console.log("싫어요");

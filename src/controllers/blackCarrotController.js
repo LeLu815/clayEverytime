@@ -3,13 +3,21 @@ import User from "../models/User";
 
 export const registerLikes = async (req, res) => {
     const {id} = req.params;
+    if(!id) {
+        return;
+    }
+    const content = await Content.findById(id);
+    if (!Boolean(res.session)) {
+        console.log("여기");
+        return res.status(401).json({
+            isLoggedIn : false, 
+            counts : content.meta.likes
+        });
+    }
     const {user:{_id}} = req.session;
 
-    const content = await Content.findById(id);
-    const user = await User.findById(_id);
-
     if (!content) {
-        res.sendStatus(404);
+        return res.status(404).end(null);
     }
     
     if (!content.likedUser.includes(_id)) {
