@@ -21,6 +21,9 @@ const contentSchema = mongoose.Schema({
         required: true,
         ref: "User",
     },
+    likedUser:[
+        {type : mongoose.Schema.Types.ObjectId, ref:"User"}
+    ],
 });
 
 const Content = mongoose.model("Content", contentSchema);

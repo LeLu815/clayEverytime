@@ -1,13 +1,31 @@
 import Content from "../models/Content";
+import User from "../models/User";
 
 export const registerLikes = async (req, res) => {
     const {id} = req.params;
+    const {user:{_id}} = req.session;
+
     const content = await Content.findById(id);
+    const user = await User.findById(_id);
+
     if (!content) {
         res.sendStatus(404);
     }
-    content.meta.likes += 1;
+    
+    if (!content.likedUser.includes(_id)) {
+        content.likedUser.push(_id);
+        content.meta.likes = content.likedUser.length;
+        console.log(content.meta.likes);
+        console.log("좋아요", content.likedUser);
+        await content.save();
+        return res.json(content.meta.likes);
+    }
+    content.likedUser = content.likedUser.filter((element)=>String(element) !== String(_id));
+    content.meta.likes = content.likedUser.length;
+    console.log(content.likedUser.length);
+    console.log(content.meta.likes);
     await content.save();
+    console.log("싫어요", content.likedUser);
     return res.json(content.meta.likes);
 }
 
@@ -55,7 +73,8 @@ export const postUpload = async (req, res) => {
         file,
      }= req;
     console.log(file);
-    try { await Content.create({
+    try { 
+        const newContent = await Content.create({
             title,
             description,
             contentType,
@@ -66,6 +85,9 @@ export const postUpload = async (req, res) => {
             },
             contentImage : file.path,
         });
+        const user = await User.findById(_id);
+        user.contents.push(newContent._id);
+        user.save();
         return res.redirect("/");
     } catch (error) {
         return res.render("upload", {

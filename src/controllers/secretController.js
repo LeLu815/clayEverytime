@@ -10,12 +10,27 @@ export const secretLoungeContent = async (req, res) => {
     // 컨텐츠 아이디를 받아서 해당 컨텐츠를 불러올 때 owner 부분이 user의 objectId로 저장되어 있던 부분을 user 객체로 변환시켜준다.
     const {id} = req.params;
     const content = await Content.findById(id).populate("owner");
-    return res.render("secretLoungeContent", {content});
+
+    if (!res.locals.loggedIn) {
+        return res.render("secretLoungeContent", {content, Likes : "regular"});
+    }
+    const {user:{_id}} = req.session;
+    if (!content.likedUser.includes(_id)) {
+        return res.render("secretLoungeContent", {content, Likes : "regular"});
+    }
+    return res.render("secretLoungeContent", {content, Likes : "solid"});
 }
 
 export const getEdit = async (req, res) => {
     const { id } = req.params;
+    const {user:{_id}} = req.session;
     const content = await Content.findById(id);
+    if (!content) {
+        return res.status(404).render("404", {pageTitle: "존재하지 않는 게시글입니다."})
+    }
+    if(String(content.owner) !== String(_id)) {
+        return res.status(403).redirect("/");
+    }
     return res.render("editContent", {content});
 }
 
@@ -41,6 +56,11 @@ export const postEdit = async (req, res) => {
 
 export const deleteSecretContent = async (req, res) => {
     const { id } = req.params;
+    const {user:{_id}} = req.session;
+    const content = await Content.findById(id);
+    if(String(content.owner) !== String(_id)) {
+        return res.status(403).redirect("/");
+    }
     await Content.findByIdAndDelete(id);
     return res.redirect("/");
 }
