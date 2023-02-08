@@ -1,4 +1,17 @@
 extends base.pug
+include mixins/topicContent.pug
 
 block contentMain
-    h1=user.name
+    div
+        h1=user.name
+        img(src="/"+loggedInUser.profileImage, width="100", height="100")
+    
+    div 
+        each secretContent in user.contents
+            form(action=`/api/userProfile/${secretContent._id}`, method="post") 
+                +topicContent(secretContent) 
+                input(type="submit" value="삭제") 
+
+
+    
+

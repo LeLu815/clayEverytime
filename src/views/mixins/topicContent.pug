@@ -8,8 +8,16 @@ mixin topicContent(content)
                 a(href=`http:/content/secretLounge/${content.id}`) #{content.description} 
         div 
             p 
-                a(href=`http:/content/secretLounge/${content.id}`) 작성자 정보 넣어야함 
+                a(href=`http:/content/secretLounge/${content.id}`) #{content.owner.name} 
             div 
                 a(href=`http:/content/secretLounge/${content.id}`) #{content.meta.views}
-                a(href="http://") #{content.meta.likes}
+
+                if String(content.owner._id) === String(loggedInUser._id)
+                    i(class=`fa-solid fa-thumbs-up`, id="isLiked")
+                else 
+                    i(class=`fa-regular fa-thumbs-up`, id="isLiked")
+                a(href=`http:/content/secretLounge/${content.id}`) #{content.meta.likes}
+                
                 a(href=`http:/content/secretLounge/${content.id}`) 댓글수
+            div     
+                a(href=`http:/content/secretLounge/${content.id}`) #{content.createdAt}

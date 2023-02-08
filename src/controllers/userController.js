@@ -2,11 +2,26 @@ import User from "../models/User";
 import bcrypt from "bcrypt";
 import { config } from "dotenv";
 import fetch from "cross-fetch";
+import Content from "../models/Content";
 
+export const deleteMyStuff = async (req, res) => {
+    // 이 함수는 apiRouter로 연결한 함수로써 유저 프로파일 페이지에서 내 게시글과 댓글 삭제 역할을 함
+    const { id } = req.params;
+    const {user:{_id}} = req.session;
+    const content = await Content.findById(id);
+    const user = await User.findById(_id);
+    if(String(content.owner) !== String(_id)) {
+        return res.status(403).redirect("/");
+    }
+    await Content.findByIdAndDelete(id);
+    user.contents = user.contents.filter((element)=> String(element) !== String(id));
+    await user.save();
+    return res.redirect(`/users/${_id}`);
+}
 
 export const see = async (req, res) => {
     const {id} = req.params;
-    const user = await User.findById(id);
+    const user = await User.findById(id).populate("contents");
     if(!user) {
         return res.status(404).render("404");
     }

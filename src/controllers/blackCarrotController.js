@@ -7,8 +7,7 @@ export const registerLikes = async (req, res) => {
         return;
     }
     const content = await Content.findById(id);
-    if (!Boolean(res.session)) {
-        console.log("여기");
+    if (!Boolean(req.session)) {
         return res.status(401).json({
             isLoggedIn : false, 
             counts : content.meta.likes

@@ -10,20 +10,21 @@ contentLikes.addEventListener("click", async function() {
     }
     const response = await fetch(`/api/content/${id}/likes`);
     const data = await response.json();
+    console.log(data);
     if (data.isLoggedIn === false) {
+        // console.log(data.counts, typeof data.counts, String(data.counts));
         contentLikes.innerText = data.counts;
-        alert("로그인이 필요합니다.")
+        alert("로그인이 필요합니다.");
+        return;
     } else if (data === null) {
-        alert("삭제된 컨텐츠 입니다.")
+        alert("삭제된 컨텐츠 입니다.");
+        return;
     }
-    console.log(data, Number(contentLikes.innerText));
     if (Number(data) < Number(contentLikes.innerText)) {
-        console.log("싫어요");
         isLiked.className  = "fa-regular fa-thumbs-up";
         contentLikes.innerText = data;
         return;
     }
-    console.log("좋아요");
     isLiked.className = "fa-solid fa-thumbs-up";
     contentLikes.innerText = data;
     return;

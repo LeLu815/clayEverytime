@@ -1,7 +1,8 @@
 import Content from "../models/Content";
+import User from "../models/User";
 
 export const secretLounge = async (req, res) => {
-    const secretContents = await Content.find({contentType:2});
+    const secretContents = await Content.find({contentType:2}).populate("owner");
     // console.log(secretContents);
     return res.render("secretLounge", {secretContents});
 }
@@ -57,10 +58,13 @@ export const postEdit = async (req, res) => {
 export const deleteSecretContent = async (req, res) => {
     const { id } = req.params;
     const {user:{_id}} = req.session;
+    const user = await User.findById(_id);
     const content = await Content.findById(id);
     if(String(content.owner) !== String(_id)) {
         return res.status(403).redirect("/");
     }
     await Content.findByIdAndDelete(id);
+    user.contents = user.contents.filter((element)=> String(element) !== String(id));
+    await user.save();
     return res.redirect("/");
 }

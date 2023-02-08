@@ -10,6 +10,6 @@ userRouter.route("/edit").all(protectorMiddleware).get(getEdit).post(uploadFiles
 userRouter.route("/change-password").all(protectorMiddleware).get(getChangePassword).post(postChangePassword);
 userRouter.get("/remove", protectorMiddleware, remove);
 userRouter.get("/kakao",publicOnlyMiddleware, getKkt);
-userRouter.route("/:id([0-9a-f]{24})").get(see);
+userRouter.route("/:id([0-9a-f]{24})").get(see)
 
 export default userRouter;
