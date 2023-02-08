@@ -20,4 +20,6 @@ mixin topicContent(content)
                 
                 a(href=`http:/content/secretLounge/${content.id}`) 댓글수
             div     
-                a(href=`http:/content/secretLounge/${content.id}`) #{content.createdAt}
+                a(href=`http:/content/secretLounge/${content.id}`, class="contentCreatedAt") #{content.createdAt.getTime()}
+
+    
