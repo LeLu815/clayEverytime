@@ -11,6 +11,9 @@ const userSchema = new mongoose.Schema({
     contents : [
         {type : mongoose.Schema.Types.ObjectId, ref:"Content"}
     ],
+    comment : [
+        {type : mongoose.Schema.Types.ObjectId, ref:"Comment",}
+    ],
 });
 
 userSchema.pre("save", async function() {

@@ -8,7 +8,6 @@ import contentRouter from "./routers/contentsRouter";
 import { runtime } from "webpack";
 import { localsMiddleware } from "./middleware";
 import apiRouter from "./routers/apiRouter";
-import bodyParser from "body-parser";
 
 const app = express();
 
@@ -18,7 +17,9 @@ const logger = morgan("dev");
 app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
 app.use(logger);
+// form 에서 오는 데이터를 req.body 로 읽을 수 있게 함.
 app.use(express.urlencoded({extended:true}));
+app.use(express.json());
 
 // 전역적으로 locals 변수를 사용해서 웹사이트 이름을 바꿀 수 있다.
 // MongoStore 을 통하여 세션을 db 에 저장할 수 있다. : 서버 재부팅을 해도 세션정보가 날아가지 않기 때문에 로그인 상태를 유지할 수 있다.
@@ -29,7 +30,6 @@ app.use(session({
     saveUninitialized:true,
     store: MongoStore.create({mongoUrl: process.env.DB_URL}),
 }));
-app.use(bodyParser.json());
 
 app.use(localsMiddleware);
 // express.static() 을 사용하는 이유는 별도의 라우터를 만들지 않고도 해당 url을 개설해주는 역할을 한다.

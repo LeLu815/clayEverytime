@@ -18,7 +18,7 @@ mixin topicContent(content)
                     i(class=`fa-regular fa-thumbs-up`, id="isLiked")
                 a(href=`http:/content/secretLounge/${content.id}`) #{content.meta.likes}
                 
-                a(href=`http:/content/secretLounge/${content.id}`) 댓글수
+                a(href=`http:/content/secretLounge/${content.id}`) #{content.comment.length}
             div     
                 a(href=`http:/content/secretLounge/${content.id}`, class="contentCreatedAt") #{content.createdAt.getTime()}
 

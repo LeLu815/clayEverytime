@@ -21,7 +21,7 @@ export const deleteMyStuff = async (req, res) => {
 
 export const see = async (req, res) => {
     const {id} = req.params;
-    const user = await User.findById(id).populate("contents");
+    const user = await User.findById(id).populate("contents").populate("comment");
     if(!user) {
         return res.status(404).render("404");
     }

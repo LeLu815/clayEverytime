@@ -22,17 +22,12 @@ export const registerLikes = async (req, res) => {
     if (!content.likedUser.includes(_id)) {
         content.likedUser.push(_id);
         content.meta.likes = content.likedUser.length;
-        console.log(content.meta.likes);
-        console.log("좋아요", content.likedUser);
         await content.save();
         return res.json(content.meta.likes);
     }
     content.likedUser = content.likedUser.filter((element)=>String(element) !== String(_id));
     content.meta.likes = content.likedUser.length;
-    console.log(content.likedUser.length);
-    console.log(content.meta.likes);
     await content.save();
-    console.log("싫어요", content.likedUser);
     return res.json(content.meta.likes);
 }
 
@@ -94,7 +89,7 @@ export const postUpload = async (req, res) => {
         });
         const user = await User.findById(_id);
         user.contents.push(newContent._id);
-        user.save();
+        await user.save();
         return res.redirect("/");
     } catch (error) {
         return res.render("upload", {

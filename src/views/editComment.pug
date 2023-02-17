@@ -1,0 +1,32 @@
+extends base.pug
+
+block contentMain 
+    div.comment__section
+        div.contentComment(data-id=comment._id)
+            p=comment.ownerName
+            p=comment.text
+        div.nestedComment__add-section
+            form.nestedComment__form#nestedComment__form
+                textarea(cols="30", rows="3", placeholder="댓글 추가...") 
+                button#cancelNestedCommentBtn 취소
+                button#addNestedCommentBtn 댓글
+        
+        div.nestedComment
+            each singleComment in comment.nestedComment.reverse()
+                div.contentComment(data-id=singleComment._id)
+                    p=singleComment.text
+                    //- p=singleComment.ownerName
+                    //- p=singleComment.text
+                    //- div.commentInfo
+                    //-     span(class="contentCreatedAt") #{singleComment.createdAt.getTime()}
+                    //-     span 좋아요 
+                    //-     a(href=`/content/secretLounge/nestedComment/${singleComment._id}/edit`) 대댓글
+                    //-     if String(singleComment.owner) === String(loggedInUser._id)
+                    //-         div 
+                    //-             a(href="http://")  수정
+                    //-             a(href=`/content/secretLounge/comment/${singleComment._id}&${content._id}/delete`) 삭제
+
+block scripts 
+    script(src="/client/js/contentLikes.js")
+    script(src="/client/js/timeFormat.js")
+    script(src="/client/js/nestrdCommentSection.js") 

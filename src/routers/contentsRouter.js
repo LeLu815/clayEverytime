@@ -1,7 +1,14 @@
 import express from "express";
 import { protectorMiddleware, uploadFiles } from "../middleware";
 import {see,  getUpload, postUpload, blackCarrot} from "../controllers/blackCarrotController";
-import {secretLounge, secretLoungeContent, getEdit, postEdit, deleteSecretContent} from "../controllers/secretController";
+import {
+    secretLounge, 
+    secretLoungeContent, 
+    getEdit, postEdit, 
+    deleteSecretContent, deleteSecretComment, deleteSecretNestedComment, 
+    getSecretLoungeCommentEdit, postSecretLoungeCommentEdit
+} from "../controllers/secretController";
+
 const carrotRouter = express.Router();
 
 // 흙당근
@@ -14,6 +21,11 @@ carrotRouter.get("/secretLounge", secretLounge);
 carrotRouter.get("/secretLounge/:id([0-9a-f]{24})", secretLoungeContent);
 carrotRouter.route("/secretLounge/:id([0-9a-f]{24})/edit").all(protectorMiddleware).get(getEdit).post(uploadFiles.single("image"), postEdit);
 carrotRouter.route("/secretLounge/:id([0-9a-f]{24})/delete").all(protectorMiddleware).get(deleteSecretContent).post(deleteSecretContent);
+carrotRouter.route("/secretLounge/nestedComment/:id([0-9a-f]{24})/edit").all(protectorMiddleware).get(getSecretLoungeCommentEdit).post(postSecretLoungeCommentEdit);
+carrotRouter.route("/secretLounge/comment/:id/delete").all(protectorMiddleware).get(deleteSecretComment);
+carrotRouter.route("/secretLounge/nestedComment/:id/delete").all(protectorMiddleware).get(deleteSecretNestedComment);
+
+
 // carrotRouter.get("/:id(\\d+)", see);
 // carrotRouter.get("/:id(\\d+)/edit", edit);
 // carrotRouter.get("/:id(\\d+)/delete", deleteContent);
