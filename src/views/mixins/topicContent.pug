@@ -6,19 +6,26 @@ mixin topicContent(content)
                 a(href=`http:/content/secretLounge/${content.id}`)  #{content.title}
             p
                 a(href=`http:/content/secretLounge/${content.id}`) #{content.description} 
-        div 
+        div
             p 
                 a(href=`http:/content/secretLounge/${content.id}`) #{content.owner.name} 
             div 
                 a(href=`http:/content/secretLounge/${content.id}`) #{content.meta.views}
-
-                if String(content.owner._id) === String(loggedInUser._id)
-                    i(class=`fa-solid fa-thumbs-up`, id="isLiked")
+                if content.meta.likes === 0
+                    div
+                        i(class=`fa-regular fa-thumbs-up`, id="isLiked") 
+                        a(href=`http:/content/secretLounge/${content.id}`) 좋아요
+                else
+                    div
+                        i(class=`fa-solid fa-thumbs-up`, id="isLiked") #{content.meta.likes}
+                if content.comment.length === 0
+                    div
+                        i(class=`fa-regular fa-comment`, id="commentLength") 
+                        a(href=`http:/content/secretLounge/${content.id}`) 답글
                 else 
-                    i(class=`fa-regular fa-thumbs-up`, id="isLiked")
-                a(href=`http:/content/secretLounge/${content.id}`) #{content.meta.likes}
-                
-                a(href=`http:/content/secretLounge/${content.id}`) #{content.comment.length}
+                    div
+                        i(class=`fa-solid fa-comment`, id="commentLength") 
+                        a(href=`http:/content/secretLounge/${content.id}`) #{content.comment.length}    
             div     
                 a(href=`http:/content/secretLounge/${content.id}`, class="contentCreatedAt") #{content.createdAt.getTime()}
 

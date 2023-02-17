@@ -25,6 +25,7 @@ export const see = async (req, res) => {
     if(!user) {
         return res.status(404).render("404");
     }
+
     return res.render("profile", {pageTitle: "User Profile", user});
 }
 
