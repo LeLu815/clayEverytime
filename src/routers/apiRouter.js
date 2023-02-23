@@ -3,6 +3,7 @@ import { idCheck, emailCheck } from "../controllers/userController";
 import { registerLikes } from "../controllers/blackCarrotController";
 import { deleteMyStuff } from "../controllers/userController";
 import { createComment, createNestedComment, commentEdit } from "../controllers/secretController";
+import { protectorMiddleware, publicOnlyMiddleware, uploadFiles } from "../middleware";
 
 const apiRouter = express.Router();
 

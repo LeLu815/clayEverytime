@@ -9,7 +9,6 @@ const singleCommentDelete = document.querySelector(".singleComment__delete");
 // const deepCopy = require("lodash.clonedeep");
 
 
-
 const handleDisabled = () => {
     if (textarea.value === "") {
         return addCommentBtn.disabled = true;
@@ -301,7 +300,6 @@ const addComment = (text, commentId, userName, time, contentId) => {
     }, {once : true});
 
     span_third.addEventListener("click", function(event) {
-        alert("답글");
         innerFunc(event, commentId, span_third, contentId);
     }, { once : true });
 

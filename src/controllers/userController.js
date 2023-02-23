@@ -4,6 +4,31 @@ import { config } from "dotenv";
 import fetch from "cross-fetch";
 import Content from "../models/Content";
 
+export const getCalenderAddForm = async (req, res) => {
+    // const yearMonthDate =  req.params;
+    const {id} = req.params;
+    const [year, month, date] = id.split("&");
+    
+    res.render("calenderAddForm", {
+        year,
+        month,
+        date
+    });
+}
+
+export const postCalenderAddForm = async (req, res) => {
+    const {
+        title,
+        place,
+        isPublic,
+        description,
+    } = req.body;
+
+    console.log(title, place, isPublic, description);
+
+    res.end();
+}
+
 export const deleteMyStuff = async (req, res) => {
     // 이 함수는 apiRouter로 연결한 함수로써 유저 프로파일 페이지에서 내 게시글과 댓글 삭제 역할을 함
     const { id } = req.params;
