@@ -2,15 +2,81 @@
 div.sec_cal
     div.cal_nav
         a(class="nav-btn go-prev") prev
-        div.year-month 
+        div.year-month#year-month 
         a(class="nav-btn go-next") next
     div.cal_wrap
-        div.filter
-            div.controllerBtn
-                button.kilnBtn 가마
-                button.studioBtn 스튜디오
-                button.personalBtn 내꺼쓰기 
-            div.controllerSec
+        if loggedIn
+            div.filter
+                div.controllerBtn
+                    button.kilnBtn 가마
+                    button.personalBtn 내꺼쓰기 
+                div.controllerSec
+                    if calenderInfo.length !== 0
+                        div.personalInfo
+                            ul
+                                each info in calenderInfo.reverse()
+                                    li
+                                        a(class=`tag-${info._id}`) #{info.start_date.toLocaleString()} #{info.title}
+                                        input(type="checkbox", value="checked", onclick=`checkedFunc('tag-${info._id}')`, data-id=info._id, style="textDecorationLine : none")
+                                        a(href=`/users/deleteCalenderInfo/${info._id}`) ❌
+                    else 
+                        div.personalInfo
+                            h4.no-data-info 일정이 없습니다. 달력 날짜를 눌러 일정을 추가해보세요.
+
+                    div.kilnInfo
+                        div.kiln-controller 
+                            button.show-reserve-section#show-reserve-section 예약하기 
+                            button.show-my-reserve-section#show-my-reserve-section 내 일정
+                        div.my-kiln-reserve
+                            form.kiln-reserve-form2  
+                                if kilnInfo.length !== 0
+                                    ul 
+                                        each info in kilnInfo.reverse()
+                                            li 
+                                                a(class=`tag-${info._id}`)=`${info.reservationDate.getFullYear()}년 ${Number(info.reservationDate.getMonth())+1}월 ${info.reservationDate.getDate()}일 : ${info.kilnType === 1 ? info.kilnType : "0." + String(info.kilnType)}루베` 
+                                                input(type="checkbox", value="checked", onclick=`checkedFunc('tag-${info._id}')`, data-id=info._id, style="textDecorationLine : none")
+                                                a(href=`/api/kilnScheduleDelete/${info._id}`) ❌
+                                else
+                                    h4.no-data-info 가마 예약 일정이 없습니다. 
+                        div.kiln-reserve-section
+                            form.kiln-reserve-form 
+                                div.kiln-nav
+                                    div.kiln-box 가마 
+                                    div.temper-box 온도
+                                    div.schedule-box 일정 추가
+                                        
+                                div.kiln-check-link
+                                    div.big-one-rube  
+                                        div.same-space 1루베
+                                        div.same-space 
+                                            span #{Math.round(Math.random()*1250)}
+                                        div.kiln-reserve-btn.same-space2 
+                                            select(name="", id="size-1")
+                                            a.big-one-reserve-add 추가
+                                    div.eight-rube 
+                                        div.same-space 0.8루베
+                                        div.same-space 
+                                            span #{Math.round(Math.random()*1250)}
+                                        div.kiln-reserve-btn.same-space2
+                                            select(name="", id="size-0.8")
+                                            a.eight-reserve-add 추가
+                                    div.five-rube
+                                        div.same-space 0.5루베
+                                        div.same-space 
+                                            span #{Math.round(Math.random()*1250)}
+                                        div.kiln-reserve-btn.same-space2 
+                                            select(name="", id="size-0.5")
+                                            a.five-reserve-add  추가
+                                    div.three-rube
+                                        div.same-space 0.3루베
+                                        div.same-space 
+                                            span #{Math.round(Math.random()*1250)}
+                                        div.kiln-reserve-btn.same-space2 
+                                            select(name="", id="size-0.3")
+                                            a.three-reserve-add  추가
+
+
+  
         div.days
             div.day SUN
             div.day MON
@@ -21,3 +87,4 @@ div.sec_cal
             div.day SAT
         div.dates
 
+script(src="/client/js/calenderCheckBox.js") 

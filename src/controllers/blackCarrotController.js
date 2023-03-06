@@ -1,5 +1,7 @@
 import Content from "../models/Content";
+import CalenderInfo from "../models/CalenderInfo";
 import User from "../models/User";
+import KilnInfo from "../models/KilnInfo";
 
 export const registerLikes = async (req, res) => {
     const {id} = req.params;
@@ -39,13 +41,28 @@ export const blackCarrot = async (req, res) => {
 export const trending = async (req, res) => {
     const blackCarrotContents = await Content.find({contentType:1});
     const secretContents = await Content.find({contentType:2});
-    const infoShareContents = await Content.find({contentType:3})
+    const infoShareContents = await Content.find({contentType:3});
 
+    const {user} = req.session;
+    if (!user) {
+        return res.render("home", {
+            pageTitle : "home", 
+            blackCarrotContents, 
+            secretContents,
+            infoShareContents,
+            calenderInfo : false,
+        })
+    }
+    const calenderInfo = await CalenderInfo.find({owner : user._id});
+    const kilnInfo = await KilnInfo.find({owner : user._id});
+    
     return res.render("home", {
         pageTitle : "home", 
         blackCarrotContents, 
         secretContents,
         infoShareContents,
+        calenderInfo,
+        kilnInfo
     })
 };
 

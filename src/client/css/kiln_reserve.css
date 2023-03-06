@@ -1,0 +1,68 @@
+
+.controllerSec {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.kilnInfo {
+    width: 770px;
+}
+
+.kiln-nav,
+.big-one-rube,
+.eight-rube,
+.five-rube,
+.three-rube {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.kiln-box,
+.temper-box,
+.schedule-box,
+.same-space {
+    width: 250px;
+    text-align: center;
+}
+
+.same-space2 {
+    width: 270px;
+    text-align: center;
+}
+
+.kiln-reserve-btn {
+    display: flex;
+}
+.kiln-reserve-btn {
+    justify-content: space-around
+}
+
+.kiln-nav,
+.kiln-check-link {
+    margin-bottom: 20px;
+}
+
+.kiln-nav {
+    font-size: 25px;
+    font-weight: 600;
+    border-bottom: 1px #999 solid;
+    padding-bottom: 10px;
+}
+
+.kiln-reserve-form {
+    margin-bottom: 40px;
+}
+
+.no-data-info {
+    color: darkgrey;
+    font-size: 15px;
+}
+
+.kiln-reserve-form2 {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    margin-bottom: 40px;
+}

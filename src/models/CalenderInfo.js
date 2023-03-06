@@ -12,8 +12,13 @@ const calenderInfoSchema = new mongoose.Schema({
     place : {
         type:String,
     },
-    date_and_time : {
-        type:String,
+    start_date : {
+        type:Date,
+        required: true
+    },
+    end_date : {
+        type:Date,
+        required: true
     },
     
     isPublic : {
@@ -29,5 +34,5 @@ const calenderInfoSchema = new mongoose.Schema({
     },
 });
 
-const Comment = mongoose.model("calenderInfo" ,calenderInfoSchema)
-export default Comment;
+const CalenderInfo = mongoose.model("calenderInfo" ,calenderInfoSchema)
+export default CalenderInfo;

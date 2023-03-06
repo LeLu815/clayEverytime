@@ -3,6 +3,60 @@ import bcrypt from "bcrypt";
 import { config } from "dotenv";
 import fetch from "cross-fetch";
 import Content from "../models/Content";
+import CalenderInfo from "../models/CalenderInfo";
+import KilnInfo from "../models/KilnInfo";
+
+export const deleteKilnSchedule = async (req, res) => {
+    const {id} = req.params;
+    try {
+        await KilnInfo.findByIdAndDelete(id);
+        return res.redirect("/");
+    } catch (error) {
+        console.log(error);
+        return res.status(400).redirect("/");
+    }
+}
+
+export const addKilnSchedule = async (req, res) => {
+    const {
+        params : {
+            id
+        },
+        session : {
+            user: {
+                _id
+            }
+        },
+    } = req;
+
+    if (id.split(".").length !== 4) {
+        return res.status(400).redirect("/");
+    }
+    const [kilnType, year, month, date] = id.split(".");
+
+    try {
+        await KilnInfo.create({
+            kilnType,
+            reservationDate : new Date(year, month, date),
+            owner : _id
+        });
+    } catch (error) {
+        console.log(error);
+    }
+
+    return res.redirect("/");
+}
+
+export const deleteCalenderInfo = async (req, res) => {
+    const {id} = req.params;
+    try {
+        await CalenderInfo.findByIdAndDelete(id);
+        return res.redirect("/");
+    } catch(error) {
+        console.log(error) 
+        return res.status(400).redirect("/");
+    }
+}
 
 export const getCalenderAddForm = async (req, res) => {
     // const yearMonthDate =  req.params;
@@ -17,16 +71,79 @@ export const getCalenderAddForm = async (req, res) => {
 }
 
 export const postCalenderAddForm = async (req, res) => {
+    let isAllDay;
     const {
-        title,
-        place,
-        isPublic,
-        description,
-    } = req.body;
+        body :{
+            title,
+            place,
+            start_time,
+            end_year,
+            end_month,
+            end_date,
+            end_time,
+            isPublic,
+            description,
+            save_cancel,
+        },
+        session : {
+            user : {
+                _id
+            }
+        },
+        params :{id}
+    } = req;
 
-    console.log(title, place, isPublic, description);
+    
+    if (save_cancel === "취소") {
+        res.redirect("/");
+    }
 
-    res.end();
+    if (req.body.hasOwnProperty("isAllDay")) {
+        isAllDay = req.body.isAllDay;
+    } else {
+        isAllDay = 0;
+    }
+    try {
+        const [start_Year, start_Month, start_Date] = id.split("&");
+        const start_am_pm = start_time.split(" ")[0] === "오전" ? "am" : "pm"
+        const [start_hour, start_minute] = start_time.split(" ")[1].split(":");
+        const start_date = new Date(start_Year, Number(start_Month)-1, start_Date, start_am_pm === "오전" ? start_hour : Number(start_hour) +12, start_minute);
+
+        if (isAllDay === "1") {
+            const start_date = new Date(start_Year, start_Month, start_Date, 0, 0);
+            const end_date = new Date(end_year, Number(end_month)-1, end_date, 23, 59);
+
+            const calender = await CalenderInfo.create({
+                title,
+                place,
+                start_date,
+                end_date,
+                isPublic : isPublic === 1 ? true : false,
+                description,
+                owner : _id
+            });
+        
+            res.redirect("/");
+        } 
+        const end_am_pm = end_time.split(" ")[0] === "오전" ? "am" : "pm"
+        const [end_hour, end_minute] = end_time.split(" ")[1].split(":");
+        const end_date = new Date(end_year, Number(end_month)-1, end_month, end_am_pm === "오전" ? end_hour : Number(end_hour)+12, end_minute);
+
+        const calender = await CalenderInfo.create({
+            title,
+            place,
+            start_date,
+            end_date,
+            isPublic : isPublic === 1 ? true : false,
+            description,
+            owner : _id
+        });
+
+        res.redirect("/");
+    } catch (error) {
+        console.log(error);
+        res.redirect(`/users/calenderAddForm/${id}`);
+    }
 }
 
 export const deleteMyStuff = async (req, res) => {
@@ -55,7 +172,6 @@ export const see = async (req, res) => {
 }
 
 export const getEdit = (req, res) => {
-    console.log(req.session.user);
     res.render("edit-profile", {
         pageTitle:"edit-profile"
     });

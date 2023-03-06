@@ -14,7 +14,8 @@ block contentMain
             span 일시
             div.date_and_time_Section
                 span#start_year_month_date #{year}년 #{month}월 #{date}일
-                select#start_time(name="start_time") 
+                select#start_time(name="start_time")
+                    option(value="오전 12:00") 오전 12:00 
                     option(value="오전 12:30") 오전 12:30
                     option(value="오전 01:00") 오전 01:00
                     option(value="오전 01:30") 오전 01:30
@@ -66,7 +67,8 @@ block contentMain
                 select#end_year(name="end_year")
                 select#end_month(name="end_month")
                 select#end_date(name="end_date")
-                select#end_time(name="end_time") 
+                select#end_time(name="end_time")
+                    option(value="오전 12:00") 오전 12:00 
                     option(value="오전 12:30") 오전 12:30
                     option(value="오전 01:00") 오전 01:00
                     option(value="오전 01:30") 오전 01:30
@@ -115,20 +117,20 @@ block contentMain
                     option(value="오후 11:00") 오후 11:00
                     option(value="오후 11:30") 오후 11:30
                 span 
-                    input(name="isAllDay", id="isAllDay", type="checkbox", value=true)
+                    input(name="isAllDay", id="isAllDay", type="checkbox", value=1)
                     label(for="isAllDay") 종일
         div#isPublic_div
             span 공개
-            input(name="isPublic", type="radio", id="public_default", value=true, checked="checked")
+            input(name="isPublic", type="radio", id="public_default", value=1, checked="checked")
             label(for="public_default") 기본
-            input(name="isPublic", type="radio", id="public_private", value=false)
+            input(name="isPublic", type="radio", id="public_private", value=0)
             label(for="public_private") 비공개
         div#description
             span 설명
             textarea(name="description", cols="30", rows="5")  
         div#submit_cancel
-            input(type="submit", value="저장")
-            input(type="button", value="취소", id="cancelBtn")
+            input(type="submit", value="저장", name="save_cancel")
+            input#cancel_btn(type="submit", value="취소", name="save_cancel")
 
 block scripts
     script(src="/client/js/calenderAddForm.js")

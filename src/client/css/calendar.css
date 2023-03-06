@@ -108,3 +108,33 @@
 .sec_cal .cal_wrap .day.disable {
     color: #ddd;
 }
+
+.kilnBtn {
+    margin-right: 10px;
+}
+
+.controllerBtn {
+    margin-bottom: 10px;
+}
+
+.kilnInfo {
+    align-items: center;
+    justify-content: center;
+}
+
+.show-reserve-section {
+    margin-right: 10px;
+}
+
+.show-my-reserve-section,
+.show-reserve-section {
+    width: 100px;
+    height: 30px;
+    font-size: 15px;
+    text-align: center;
+    justify-content: center;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
