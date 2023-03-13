@@ -8,7 +8,7 @@
 
 .topicScript {
     display: flex;
-    width: 746px;
+    width: 1000px;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: start;
@@ -19,16 +19,26 @@
     width: 348px;
     height: 206px;
     padding-left: 25px;
-    overflow: hidden
-    /* margin: 4px; */
+    overflow: hidden;
+    margin-right: 50px;
+    margin-bottom: 40px;
     
 }
 
 .header {
-    border-bottom: 1px solid #eee;
+    border-bottom: 2px solid #e0e0e0;
     display: flex;
     justify-content:space-between;
     align-items: center;
     font-size: 14px;
     
+}
+
+.no-dot {
+    list-style-type: none;
+    padding-left: 0px;
+}
+
+.no-content {
+    color: #adadad;
 }

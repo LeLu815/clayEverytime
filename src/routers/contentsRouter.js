@@ -6,29 +6,31 @@ import {
     secretLoungeContent, 
     getEdit, postEdit, 
     deleteSecretContent, deleteSecretComment, deleteSecretNestedComment, 
-    getSecretLoungeCommentEdit, postSecretLoungeCommentEdit
+    getSecretLoungeCommentEdit, postSecretLoungeCommentEdit,
 } from "../controllers/secretController";
+import { 
+    shareInfoLounge,
 
-const carrotRouter = express.Router();
+} from "../controllers/shareInfoController";
+
+const contentRouter = express.Router();
 
 // 흙당근
-carrotRouter.get("/blackCarrot", blackCarrot);
+contentRouter.get("/blackCarrot", blackCarrot);
 // 흙당근 페이지와 상세페이지 만들어야함.
-// carrotRouter.get("/blackCarrot/:id([0-9a-f]{24})", secretLoungeContent);
+// contentRouter.get("/blackCarrot/:id([0-9a-f]{24})", secretLoungeContent);
 
 // 비밀게시글
-carrotRouter.get("/secretLounge", secretLounge);
-carrotRouter.get("/secretLounge/:id([0-9a-f]{24})", secretLoungeContent);
-carrotRouter.route("/secretLounge/:id([0-9a-f]{24})/edit").all(protectorMiddleware).get(getEdit).post(uploadFiles.single("image"), postEdit);
-carrotRouter.route("/secretLounge/:id([0-9a-f]{24})/delete").all(protectorMiddleware).get(deleteSecretContent).post(deleteSecretContent);
-carrotRouter.route("/secretLounge/nestedComment/:id([0-9a-f]{24})/edit").all(protectorMiddleware).get(getSecretLoungeCommentEdit).post(postSecretLoungeCommentEdit);
-carrotRouter.route("/secretLounge/comment/:id/delete").all(protectorMiddleware).get(deleteSecretComment);
-carrotRouter.route("/secretLounge/nestedComment/:id/delete").all(protectorMiddleware).get(deleteSecretNestedComment);
+contentRouter.get("/secretLounge", secretLounge);
+contentRouter.get("/secretLounge/:id([0-9a-f]{24})", secretLoungeContent);
+contentRouter.route("/secretLounge/:id([0-9a-f]{24})/edit").all(protectorMiddleware).get(getEdit).post(uploadFiles.single("image"), postEdit);
+contentRouter.route("/secretLounge/:id([0-9a-f]{24})/delete").all(protectorMiddleware).get(deleteSecretContent).post(deleteSecretContent);
+contentRouter.route("/secretLounge/nestedComment/:id([0-9a-f]{24})/edit").all(protectorMiddleware).get(getSecretLoungeCommentEdit).post(postSecretLoungeCommentEdit);
+contentRouter.route("/secretLounge/comment/:id/delete").all(protectorMiddleware).get(deleteSecretComment);
+contentRouter.route("/secretLounge/nestedComment/:id/delete").all(protectorMiddleware).get(deleteSecretNestedComment);
 
+contentRouter.route("/shareInfoLounge").get(shareInfoLounge);
 
-// carrotRouter.get("/:id(\\d+)", see);
-// carrotRouter.get("/:id(\\d+)/edit", edit);
-// carrotRouter.get("/:id(\\d+)/delete", deleteContent);
-carrotRouter.route("/upload").all(protectorMiddleware).get(getUpload).post(uploadFiles.single("image"), postUpload);
+contentRouter.route("/upload").all(protectorMiddleware).get(getUpload).post(uploadFiles.single("image"), postUpload);
 
-export default carrotRouter;
+export default contentRouter;

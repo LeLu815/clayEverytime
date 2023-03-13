@@ -3,30 +3,40 @@ html(lang='ko')
     head 
         title #{pageTitle} | 흙타
         script(src="https://kit.fontawesome.com/0566d757d3.js", crossorigin="anonymous") 
+        script(src="/client/js/searchSection.js")
+        link(rel="stylesheet", href="/client/css/search_bar.css") 
         link(rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css")
         block css
     body 
-        header 
+        div.top-black-line
+        header(style="padding-top:0px; padding-bottom:10px;")
             nav.nav 
                 ul 
                     li 
-                        a(href="/") 흙타
-                    li
-                        a(href="/") 팀흙타 채용&rarr;
+                        div.main-logo
+                            a(href="/", style="color:black; font-size:35px; font-weight: 900; text-decoration-line : none;") 흙타
+                            div.clay-logo C L A Y
                     li 
-                        a(href="/content/upload") 글쓰기 
+                        a(href="/", style="color: black", class="li-margin") 홈
+                    li
+                        a(href="/", style="color: black", class="team-recruit") 팀흙타 채용&rarr;
+                    li 
+                        a(href="/content/upload", style="color: black", class="li-margin") 글쓰기 
                     if loggedIn
                         li 
-                            a(href="/users/edit") 프로필 수정
+                            a(href="/users/edit", style="color: black", class="li-margin") 프로필 수정
                         li 
-                            a(href="/users/logout") 로그아웃
+                            a(href="/users/logout", style="color: black", class="li-margin") 로그아웃
                         li 
-                            a(href=`/users/${loggedInUser._id}`) 내 정보
+                            a(href=`/users/${loggedInUser._id}`, style="color: black") 내 정보
                     else 
                         li 
-                            a(href="/login") 로그인
-
-            input(placeholder="관심있는 내용을 검색해보세요", type="text", name="keyword")
+                            a(href="/login", style="color: black") 로그인
+            div(class="search-bar-div", data-is_logged_in=`${loggedIn}`, id="loggedIn_check_div")
+                form(action=`/search`, class="search-bar-section")
+                    button(type="submit").search-bar-button
+                        i(class="fa-solid fa-magnifying-glass")
+                    input.search-bar(placeholder="관심있는 내용을 검색해보세요", type="text", name="keyword", required)
 
         main 
             div

@@ -1,0 +1,45 @@
+.select-field {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid #d0d0d0;
+    border-bottom: 1.5px solid #d0d0d0;
+    border-left: 1.5px solid #d0d0d0;
+    border-right: 1.5px solid #d0d0d0;
+    width: 120px;
+    padding: 7px 3px 7px 7px;
+    box-shadow: 0px 5px 6px 0px  #bfbfbf;
+    background-color: white;
+}
+
+.arrow-up {
+    display: flex;
+    vertical-align: bottom;
+    position: relative;
+}
+
+#arrow-up {
+    position: absolute;
+    top: -4px;
+    width: 8px; /* 사이즈 */
+    height: 8px; /* 사이즈 */
+    border-top: 1.5px solid #a1a1a1; /* 선 두께 */
+    border-right: 1.5px solid #a1a1a1; /* 선 두께 */
+    transform: rotate(315deg); /* 각도 */
+    margin-left: 40px;
+    background-color: white;
+}
+
+.result-filter-num {
+    margin-right: 5px;
+}
+
+
+
+.outer-div {
+    position: relative;
+}
+
+#select_container {
+    position:absolute;
+    top:30px;
+}

@@ -206,6 +206,7 @@ function renderCalender(thisMonth) {
         div_tag.classList.add("day", "current");
         a_tag.href = `/users/calenderAddForm/${currentYear}&${currentMonth + 1}&${i}`;
         a_tag.innerText = i;
+        a_tag.style.color = "#717171";
 
         div_tag.append(a_tag);
         calendar.append(div_tag);

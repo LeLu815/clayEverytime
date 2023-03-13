@@ -1,32 +1,36 @@
 mixin topicContent(content)
-    div
-        span 
-        div 
-            h3
-                a(href=`http:/content/secretLounge/${content.id}`)  #{content.title}
-            p
-                a(href=`http:/content/secretLounge/${content.id}`) #{content.description} 
+    div.content-card
         div
+            h3.title
+                a(href=`http:/content/secretLounge/${content.id}`, class="link_black", style="color: black").title  #{content.title}
+            p
+                a(href=`http:/content/secretLounge/${content.id}`, class="link_black", style="color: black") #{content.description} 
+        div.owner-name
             p 
-                a(href=`http:/content/secretLounge/${content.id}`) #{content.owner.name} 
-            div 
-                a(href=`http:/content/secretLounge/${content.id}`) #{content.meta.views}
+                a(href=`http:/content/secretLounge/${content.id}`, class="link_black", style="color: black") #{content.owner.name} 
+        div.informationSection
+            div.infoPart
+                div
+                    i(class="fa-regular fa-eye")
+                    a(href=`http:/content/secretLounge/${content.id}` class="link_gary info-sub", style="color: #939393") #{content.meta.views}
                 if content.meta.likes === 0
                     div
-                        i(class=`fa-regular fa-thumbs-up`, id="isLiked") 
-                        a(href=`http:/content/secretLounge/${content.id}`) 좋아요
+                        i(class=`fa-regular fa-thumbs-up`, id="isLiked")
+                        a(href=`http:/content/secretLounge/${content.id}`, class="link_gary info-sub", style="color: #939393") 좋아요
                 else
                     div
-                        i(class=`fa-solid fa-thumbs-up`, id="isLiked") #{content.meta.likes}
+                        i(class=`fa-solid fa-thumbs-up`, id="isLiked")=` ${content.meta.likes}`
                 if content.comment.length === 0
                     div
-                        i(class=`fa-regular fa-comment`, id="commentLength") 
-                        a(href=`http:/content/secretLounge/${content.id}`) 답글
+                        i(class=`fa-regular fa-comment`, id="commentLength")
+                        a(href=`http:/content/secretLounge/${content.id}`, class="link_gary info-sub", style="color: #939393") 답글
                 else 
                     div
-                        i(class=`fa-solid fa-comment`, id="commentLength") 
-                        a(href=`http:/content/secretLounge/${content.id}`) #{content.comment.length}    
+                        i(class=`fa-solid fa-comment`, id="commentLength")
+                        a(href=`http:/content/secretLounge/${content.id}`, class="link_gary", style="color: #939393")=` ${content.comment.length}`    
             div     
-                a(href=`http:/content/secretLounge/${content.id}`, class="contentCreatedAt") #{content.createdAt.getTime()}
+                a(href=`http:/content/secretLounge/${content.id}`, class="contentCreatedAt link_gary info-sub", style="color: #939393") #{content.createdAt.getTime()}
+                i.calender-emoji(class="fa-regular fa-calendar")
+                    
 
     

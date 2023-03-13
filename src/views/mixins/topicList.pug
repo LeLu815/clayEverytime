@@ -1,7 +1,7 @@
 mixin topicList(contents)
         div.main
-            ul
+            ul.no-dot
                 each content in contents
                     li #{content.title}
                 else 
-                    li 게시글이 없습니다.
+                    li.no-content 게시글이 없습니다.

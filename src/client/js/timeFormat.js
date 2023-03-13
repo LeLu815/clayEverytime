@@ -41,14 +41,12 @@ const timeFunc = (contentTime) => {
 
 
 if (testClass.length === 0) {
-    contentCreatedAt.innerText = timeFunc(contentCreatedAt.innerText); 
+    if (!contentCreatedAt) {
+    } else {
+        contentCreatedAt.innerText = timeFunc(contentCreatedAt.innerText); 
+    }
 } else {
     for (let tag of testClass) {
         tag.innerText = timeFunc(tag.innerText);
     } 
 }
-// let value = contentCreatedAt.innerText;
-
-// contentCreatedAt.addEventListener("scroll", function(value){
-//     contentCreatedAt.innerText = timeFunc(value);
-// });

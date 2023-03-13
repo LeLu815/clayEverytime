@@ -4,16 +4,16 @@ include mixins/topicContent.pug
 block contentMain
     include partials/contentNav.pug
     div.contentsSection
-        if blackCarrotContents.length === 0
-            div.none-contents 
+        if shareInfoContents.length === 0
+            div.none-contents  
                 h3 게시글이 존재하지 않습니다.
-        else
-            each blackCarrotContent in blackCarrotContents
-                +topicContent(blackCarrotContent)
+        else 
+            each shareInfoContent in shareInfoContents
+                +topicContent(shareInfoContent)
 
 block contentSub
 
 block scripts
-    script(src="/client/js/timeFormat.js") 
+    script(src="/client/js/timeFormat.js")
     script(src="/client/js/nowSelect.js") 
     link(rel="stylesheet", href="/client/css/contentNav.css") 

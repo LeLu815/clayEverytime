@@ -10,7 +10,7 @@
     align-items: center;
     font-weight: 700;
     font-size: 48px;
-    line-height: 78px;
+    line-height: 70px;
 }
 
 .sec_cal .cal_nav .year-month {
@@ -61,7 +61,7 @@
 }
 
 .sec_cal .cal_wrap {
-    padding-top: 40px;
+    padding-top: 0px;
     position: relative;
     margin: 0 auto;
 }
@@ -70,7 +70,7 @@
     display: flex;
     margin-bottom: 20px;
     padding-bottom: 20px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 2px solid #ddd;
 }
 
 .sec_cal .cal_wrap::after {
@@ -137,4 +137,25 @@
     padding-right: 5px;
     padding-top: 5px;
     padding-bottom: 5px;
+}
+
+.kilnBtn,
+.personalBtn {
+    background-color: #717171;
+    border-color: #717171;
+    height: 40px;
+    padding: 0px 30px 0px 23px;
+    margin-top: 0px;
+}
+
+#btn-emoji-fire,
+#btn-emoji-time {
+    margin-right: 8px;
+    color: white;
+}
+
+#show-reserve-section,
+#show-my-reserve-section {
+    background-color: #717171;
+    border-color: #717171;
 }

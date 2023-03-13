@@ -1,0 +1,83 @@
+
+
+.search-bar-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-bar-section {
+    display: flex;
+    border: 2px solid rgb(96, 96, 96); 
+    border-radius: 999px; 
+    justify-content: center; 
+    align-items: center; 
+    padding:5px 5px 5px 15px;
+    width: 800px;
+}
+
+.search-bar-button {
+    width:40px; 
+    height:40px; 
+    padding:0; 
+    background-color:white; 
+    border-color: white;
+    margin-right: 3px;
+}
+
+.fa-solid, 
+.fa-magnifying-glass {
+    color:rgb(96, 96, 96);
+}
+
+.search-bar {
+    padding: 0; 
+    border-color: white; 
+    text-align: left; 
+    margin-bottom: 0px;
+    font-size: 20px;
+}
+.search-bar:focus {
+    outline:none;
+}
+
+.nav {
+    margin-top: 0px;
+    margin-bottom: 50px;
+    font-size: 17px;
+}
+
+.main-logo {
+    display: flex;
+    justify-content : center;
+    align-items:center;
+    margin-right: 40px;
+}
+
+.clay-logo {
+    color: rgb(226, 0, 0);
+    border: 2px solid rgb(226, 0, 0);
+    height: 20px;
+    width: 60px;
+    text-align: center;
+    /* justify-content : center; */
+    align-items : center;
+    line-height: 20px;
+    margin-left: 8px;
+    /* padding-bottom: 4px; */
+    margin-top: 8px;
+}
+
+.top-black-line {
+    background-color: black;
+    width: 100%;
+    height: 40px;
+}
+
+.team-recruit {
+    margin-right: 350px;
+}
+
+.li-margin {
+    margin-right: 10px;
+}

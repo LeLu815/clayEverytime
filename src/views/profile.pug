@@ -4,7 +4,11 @@ include mixins/topicContent.pug
 block contentMain
     div
         h1=user.name
-        img(src="/"+loggedInUser.profileImage, width="100", height="100")
+        if loggedInUser.profileImage
+            img(src="/"+loggedInUser.profileImage, width="100", height="100")
+        else 
+            img(src="/uploads/user_base_profile_image.jpg", width="100", height="100")
+            
     
     div 
         button#contentsSectionBtn.contentsSectionBtn 게시글

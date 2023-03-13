@@ -1,0 +1,59 @@
+extends base.pug
+include mixins/topicContent.pug
+
+block contentMain 
+    div.result-head
+        div.result-keyword-section
+            h2.result-keyword "#{keyword}" 
+            h2.result-keyword2 검색 결과
+        div.result-filter
+            div.outer-div
+                div(id="select_container", style="display:none")
+                    div(class="arrow-up") 
+                        span(id="arrow-up")
+                    div(class="select-field")
+                        a(href=``, id="result_list", style="color: #b3b3b3", data-length-value=`${result.length}`, onclick='preventClick(event)') 전체 (#{result.length})
+                        a(href=``, id="carrot_list", style="color: #b3b3b3", data-length-value=`${carrot_list.length}`, onclick='preventClick(event)') 흙당근 (#{carrot_list.length})
+                        a(href=``, id="secret_list", style="color: #b3b3b3", data-length-value=`${secret_list.length}`, onclick='preventClick(event)') 익명게시판 (#{secret_list.length})
+                        a(href=``, id="info_list", style="color: #b3b3b3", data-length-value=`${info_list.length}`, onclick='preventClick(event)') 정보공유방 (#{info_list.length})
+                        a(href=``, id="getUser_list", style="color: #b3b3b3", data-length-value=`${getUser_list.length}`, onclick='preventClick(event)') 사람구함 (#{getUser_list.length})
+                div(id="up_down_btn")
+                    span.result-filter-text 전체 
+                    span.result-filter-num  (#{result.length})
+                    i(class="fa-solid fa-chevron-down")
+    div.result-main.contentsSection
+        if result.length === 0
+            div.result-none
+                h2 검색결과가 없습니다!
+                h4 검색할 단어를 변경하거나,
+                h4 단어의 철자가 정확한지 확인해보세요.
+        else 
+            div(id="search_result_list") 
+                each single_result in result.reverse()
+                    +topicContent(single_result)
+            if carrot_list !== 0
+                div(style="display:none", id="search_carrot_list")
+                    each single_result in carrot_list.reverse()
+                        +topicContent(single_result)
+            if secret_list !== 0
+                div(style="display:none", id="search_secret_list")
+                    each single_result in secret_list.reverse()
+                        +topicContent(single_result)
+            if info_list !== 0
+                div(style="display:none", id="search_info_list")
+                    each single_result in info_list.reverse()
+                        +topicContent(single_result)
+            if getUser_list !== 0
+                div(style="display:none", id="search_getUser_list")
+                    each single_result in getUser_list.reverse()
+                        +topicContent(single_result)
+
+
+
+
+block scripts
+    script(src="/client/js/timeFormat.js") 
+    script(src="/client/js/selectContainer.js")
+    link(rel="stylesheet", href="/client/css/contentNav.css")
+    link(rel="stylesheet", href="/client/css/up_down_select.css")
+    

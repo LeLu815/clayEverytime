@@ -1,9 +1,14 @@
-div 
-    div 
-        a(href="/content/blackCarrot") 흙당근
-    div 
-        a(href="/content/secretLounge") 비밀게시판
-    div 
-        a(href="http://") 정보공유방
-    div
-        a(href="http://") 홍성현<이인
+div.outer-nav
+    div.contentNa
+        div#carrot_select_div 
+            a(href="/content/blackCarrot", style="color: black", id="carrot_select_div_a") 흙당근
+            div#bottom_carrot_bar
+        div#secret_select_div
+            a(href="/content/secretLounge", style="color: black", id="secret_select_div_a") 익명게시판
+            div#bottom_secret_bar
+        div#info_select_div
+            a(href="/content/shareInfoLounge", style="color: black", id="info_select_div_a") 정보공유방
+            div#bottom_info_bar
+        div#user_select_div
+            a(href="http://", style="color: black", id="user_select_div_a") 사람구함
+            div#bottom_user_bar

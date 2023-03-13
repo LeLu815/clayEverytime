@@ -8,8 +8,12 @@ div.sec_cal
         if loggedIn
             div.filter
                 div.controllerBtn
-                    button.kilnBtn 가마
-                    button.personalBtn 내꺼쓰기 
+                    button.kilnBtn
+                        i(class="fa-solid fa-fire")#btn-emoji-fire
+                        span 가마
+                    button.personalBtn 
+                        i(class="fa-solid fa-clock")#btn-emoji-time
+                        span 일정 
                 div.controllerSec
                     if calenderInfo.length !== 0
                         div.personalInfo
@@ -42,35 +46,35 @@ div.sec_cal
                             form.kiln-reserve-form 
                                 div.kiln-nav
                                     div.kiln-box 가마 
-                                    div.temper-box 온도
+                                    div.temper-box 현재 온도
                                     div.schedule-box 일정 추가
                                         
                                 div.kiln-check-link
                                     div.big-one-rube  
                                         div.same-space 1루베
                                         div.same-space 
-                                            span #{Math.round(Math.random()*1250)}
+                                            span #{Math.round(Math.random()*1250)} °C
                                         div.kiln-reserve-btn.same-space2 
                                             select(name="", id="size-1")
                                             a.big-one-reserve-add 추가
                                     div.eight-rube 
                                         div.same-space 0.8루베
                                         div.same-space 
-                                            span #{Math.round(Math.random()*1250)}
+                                            span #{Math.round(Math.random()*1250)} °C
                                         div.kiln-reserve-btn.same-space2
                                             select(name="", id="size-0.8")
                                             a.eight-reserve-add 추가
                                     div.five-rube
                                         div.same-space 0.5루베
                                         div.same-space 
-                                            span #{Math.round(Math.random()*1250)}
+                                            span #{Math.round(Math.random()*1250)} °C
                                         div.kiln-reserve-btn.same-space2 
                                             select(name="", id="size-0.5")
                                             a.five-reserve-add  추가
                                     div.three-rube
                                         div.same-space 0.3루베
                                         div.same-space 
-                                            span #{Math.round(Math.random()*1250)}
+                                            span #{Math.round(Math.random()*1250)} °C
                                         div.kiln-reserve-btn.same-space2 
                                             select(name="", id="size-0.3")
                                             a.three-reserve-add  추가

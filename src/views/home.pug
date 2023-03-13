@@ -8,26 +8,42 @@ block contentSub
     div.topicScript
         div.topic-items
             div.header
-                h2 흙당근
-                a(href=`/content/blackCarrot`) 더보기 &rarr;
+                div.topic-header-name
+                    i(class="fa-solid fa-carrot")#topic-header-icon
+                    h2 흙당근
+                div
+                    a(href=`/content/blackCarrot`, style="color:black; font-size: 13px;") 더보기
+                    i(class="fa-solid fa-chevron-right more-see-arrow")
             +topicList(blackCarrotContents)
 
         div.topic-items
             div.header
-                h2 비밀게시판
-                a(href=`/content/secretLounge`) 더보기 &rarr;
+                div.topic-header-name
+                    i(class="fa-solid fa-mask")#topic-header-icon
+                    h2 익명게시판
+                div
+                    a(href=`/content/secretLounge`, style="color:black; font-size: 13px;") 더보기
+                    i(class="fa-solid fa-chevron-right more-see-arrow")
             +topicList(secretContents)
 
         div.topic-items
             div.header
-                h2 정보공유방
-                a(href=`/content/blackCarrot`) 더보기 &rarr;
+                div.topic-header-name
+                    i(class="fa-solid fa-circle-info")#topic-header-icon
+                    h2 정보공유방
+                div
+                    a(href=`/content/shareInfoLounge`, style="color:black; font-size: 13px;") 더보기
+                    i(class="fa-solid fa-chevron-right more-see-arrow")
             +topicList(infoShareContents)
 
         div.topic-items
             div.header
-                h2 홍성현<이인
-                a(href=`/content/blackCarrot`) 더보기 &rarr;
+                div.topic-header-name
+                    i(class="fa-solid fa-user-plus")#topic-header-icon
+                    h2 사람구함
+                div
+                    a(href=`/content/blackCarrot`, style="color:black; font-size: 13px;") 더보기
+                    i(class="fa-solid fa-chevron-right more-see-arrow")
             +topicList(blackCarrotContents)
 
 
