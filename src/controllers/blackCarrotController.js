@@ -4,10 +4,13 @@ import User from "../models/User";
 import KilnInfo from "../models/KilnInfo";
 
 export const registerLikes = async (req, res) => {
-    const {id} = req.params;
+    const {
+        params:{id},
+    } = req;
     if(!id) {
         return;
     }
+
     const content = await Content.findById(id);
     if (!Boolean(req.session)) {
         return res.status(401).json({
@@ -98,7 +101,13 @@ export const postUpload = async (req, res) => {
     const {
         body: {title, description, contentType},
         file,
-     }= req;
+    }= req;
+
+    const isCancelExists = Object.keys(req.body).includes("cancelBtn");
+    if (isCancelExists) {
+        res.redirect("/");
+    }
+
     try { 
         const newContent = await Content.create({
             title,

@@ -1,14 +1,31 @@
 extends base.pug
 
 block contentMain
-    if errorMessage
-        span=errorMessage
-    form(method="POST")
-        input(placeholder="아이디", name="username", type="text", required)
-        input(placeholder="비밀번호", name="password", type="password", required)
-        input(type="submit", value="Login")
-        br
-        a(href=`https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`) 카카오톡 로그인  &rarr;
-    hr
-    div
-        a(href="/join") 회원가입 &rarr;
+    div.login-form-section
+        if errorMessage
+            span=errorMessage
+        form(method="POST")
+            div.inner-div
+                div.username-div
+                    i(class="fa-solid fa-user")
+                    input(placeholder="아이디", name="username", type="text", required, class="username-input", size="20", style="width:100%", id="usernameInput")
+                    i(class="fa-regular fa-circle-xmark")#wipeUsername
+                div.password-div
+                    i(class="fa-solid fa-lock")
+                    input(placeholder="비밀번호", name="password", type="password", required, class="password-input", size="20", id="passwordInput")
+                    i(class="fa-regular fa-circle-xmark")#wipePassword
+                input(type="submit", value="로그인", class="login-input")
+        div.login-submit-section
+            div.kakao-div
+                a(href=`https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`, style="color: #999999;") 카카오 로그인 
+            div 
+                span.between-bar |
+            div.join-div
+                a(href="/join", style="color: #999999;") 회원가입
+                i(class="fa-solid fa-user-plus")
+
+block css 
+    link(rel="stylesheet", href="/client/css/loginFrom.css")
+
+block scripts
+    script(src="/client/js/login.js")

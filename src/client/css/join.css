@@ -1,3 +1,18 @@
+.contentMain {
+    display: flex;
+    justify-content: center;
+}
+
+.login-form {
+    width: 460px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 50px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
 .username {
     display: flex;
     flex-direction: row;
@@ -8,4 +23,87 @@
     display: flex;
     flex-direction: column;
     width: fit-content;
+}
+
+.name,
+.email,
+.username,
+.password,
+.password2,
+.location,
+.submit {
+    width: 100%;
+    size: 25;
+    padding-top: 10px;
+    padding-bottom: 10x;
+}
+.password,
+.password2 {
+    box-sizing : border-box;
+}
+
+#invisiblePw {
+    width: 100%;
+}
+
+.password-check-center {
+    display: flex;
+    justify-content: center;
+}
+
+.name[type="text"],
+.email[type="email"],
+.username[type="text"],
+.password[type="password"],
+.password2[type="password"],
+.location[type="text"] {
+    font-size: 17px;
+}
+
+.submit[type="submit"] {
+    background-color: #000000;
+    border-color: #000000;
+    margin-top: 35px;
+}
+
+.submit[type="submit"]:disabled {
+    background-color: #b7b7b7;
+    border-color: #b7b7b7;
+    color: rgb(255, 255, 255);
+    cursor:not-allowed;
+}
+
+.okay-span {
+    color:black;
+    font-size: 13px;
+}
+
+.not-allowed-span {
+    color: rgb(218, 18, 18);
+    font-size: 13px;
+}
+
+.login-a-tag-div {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-a-tag:link {
+    font-size: 18px;
+}
+.fa-solid.fa-right-to-bracket {
+    font-size: 18px;
+    margin-left: 8px;
+}
+
+.clay-logo {
+    border-width: 3px;
+    font-weight: 600;
+}
+
+.main-logo {
+    margin-bottom: 30px;
+    margin-left: 10px;
 }

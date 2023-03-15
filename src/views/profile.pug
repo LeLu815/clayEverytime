@@ -3,23 +3,25 @@ include mixins/topicContent.pug
 
 block contentMain
     div
-        h1=user.name
         if loggedInUser.profileImage
             img(src="/"+loggedInUser.profileImage, width="100", height="100")
         else 
             img(src="/uploads/user_base_profile_image.jpg", width="100", height="100")
-            
+    div 
+        h1=user.name
+        h2=user.username    
     
     div 
         button#contentsSectionBtn.contentsSectionBtn 게시글
-        button#commentsSectionBtn.commentsSectionBtn 댓글
+        button(class="commentsSectionBtn", id="commentsSectionBtn") 댓글
 
     div(id="contentsSection", class="contentsSection", style="display:none")
         each secretContent in user.contents.reverse()
             form(action=`/api/userProfile/${secretContent._id}`, method="post") 
                 +topicContent(secretContent)
-                if Object.keys(loggedInUser).length !== 0 || String(user._id) === String(loggedInUser._id)
-                    input(type="submit" value="삭제") 
+                div
+                    if Object.keys(loggedInUser).length !== 0 || String(user._id) === String(loggedInUser._id)
+                        input(type="submit" value="삭제") 
 
     div(id="commentsSection", class="commentsSection", style="display:none")
         each comment in user.comment.reverse()
@@ -32,8 +34,9 @@ block contentMain
                         i(class=`fa-solid fa-thumbs-up`, id="isLiked")
                         span(id="commentLikes") #{comment.likes !== 0 ? comment.likes : "좋아요"}
                         span(id="nestedCommentCount") 답글 #{comment.nestedComment.length !== 0 ? comment.nestedComment.length : ""}
-                    if Object.keys(loggedInUser).length !== 0 || String(user._id) === String(loggedInUser._id)
-                        input(type="submit" value="삭제") 
+                    div
+                        if Object.keys(loggedInUser).length !== 0 || String(user._id) === String(loggedInUser._id)
+                            input(type="submit" value="삭제") 
 
     
 
@@ -41,6 +44,10 @@ block scripts
     script(src="/client/js/timeFormat.js")
     script(src="/client/js/contentLikes.js")
     script(src="/client/js/profile_btn.js")
+
+block css 
+    link(rel="stylesheet", href="/client/css/profile.css")
+    link(rel="stylesheet", href="/client/css/contentNav.css") 
 
 
 

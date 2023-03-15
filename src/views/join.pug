@@ -1,23 +1,28 @@
 extends base.pug
 
 block contentMain
-    if errorMessage
-        span=errorMessage
-    form(method="POST")
-        input(placeholder="이름", name="name", type="text", required, value=`${name ? name : ""}`)
-        span(id="emailMsg")
-        input(placeholder="본인 확인 이메일", name="email", type="email", required, value=`${email ? email : ""}`, id="email")
-        span(id="usernameMsg")
-        input(placeholder="아이디", name="username", type="text", required, id="username")
-        div(id="invisiblePw", style=`display:${invisible}`)
-            input(placeholder="비밀번호", name="password", type="password", id="password", required)
-            span(id="passwordCheck")
-            input(placeholder="비밀번호 재확인", name="password2", type="password", id="password2", required)
-        input(placeholder="위치(선택)", name="location", type="text", required)
-        input(type="submit", value="가입하기", id="submitBtn", disabled)
-    hr
-    div
-        a(href="/login") 로그인 &rarr;
+    div.login-section
+        if errorMessage
+            span=errorMessage
+        form(method="POST").login-form   
+            div.main-logo
+                a(href="/", style="color:black; font-size:35px; font-weight: 900; text-decoration-line : none;") 흙타
+                div.clay-logo C L A Y
+            input(placeholder="이름", name="name", type="text", required, value=`${name ? name : ""}`, class="name")
+            span(id="emailMsg")
+            input(placeholder="본인 확인 이메일", name="email", type="email", required, value=`${email ? email : ""}`, id="email", class="email")
+            span(id="usernameMsg")
+            input(placeholder="아이디", name="username", type="text", required, id="username", class="username")
+            div(id="invisiblePw", style=`display:${invisible}`)
+                input(placeholder="비밀번호", name="password", type="password", id="password", required, class="password", style="width:100%;")
+                div.password-check-center
+                    span(id="passwordCheck")
+                input(placeholder="비밀번호 재확인", name="password2", type="password", id="password2", required, class="password2", style="width: 100%;")
+            input(placeholder="위치(선택)", name="location", type="text", required, class="location")
+            input(type="submit", value="가입하기", id="submitBtn", disabled, class="submit")
+        div.login-a-tag-div
+            a(href="/login", class="login-a-tag", style="color:rgb(96, 96, 96);") 로그인
+            i(class="fa-solid fa-right-to-bracket")
 
 block css
     link(rel="stylesheet", href="/client/css/join.css") 

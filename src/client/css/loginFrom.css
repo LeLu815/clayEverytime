@@ -1,0 +1,123 @@
+.contentMain {
+    display: flex;
+    justify-content: center;
+}
+
+.login-form-section {
+    width: 500px;
+    height: 300px;
+}
+
+.login-submit-section {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* box-sizing : border-box; */
+.inner-div {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 420px;
+}
+
+.username-div,
+.password-div {
+    display: flex;
+    align-items: center;
+    padding: 10px 10px 10px 10px;
+    border-radius: 10px  10px 0px 0px;
+    border: #999999 solid 1px;
+}
+
+.password-div {
+    display: flex;
+    align-items: center;
+    padding: 10px 10px 10px 10px;
+    border-radius: 0px 0px 10px 10px;
+    border: #999999 solid 1px;
+    border-top: 0px solid black;
+    margin-bottom: 50px;
+}
+
+.fa-solid.fa-user {
+    font-size: 20px;
+    margin-left: 10px;
+}
+.fa-solid.fa-lock {
+    font-size: 20px;
+    margin-left: 10px;
+}
+.fa-regular.fa-circle-xmark {
+    font-size: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
+    color: #999999;
+}
+
+.password-input,
+.username-input {
+    margin: 0px;
+    border: 0px solid rgba(0, 0, 0, 0);
+    width:100%
+}
+
+.password-input:focus,
+.username-input:focus {
+    outline:0px solid rgba(0, 0, 0, 0)
+}
+
+
+.fa-solid.fa-user-plus {
+    margin-left: 5px;
+    font-size: 14px;
+    color: #999999;
+}
+
+.between-bar {
+    color: #999999;
+}
+
+.kakao-div,
+.join-div {
+    width: 150px;
+    display: flex;
+    justify-content: center;
+}
+
+.kakao-div {
+    justify-content: right;
+    margin-right: 15px;
+}
+
+.join-div {
+    justify-content: left;
+    margin-left: 15px;
+    display: flex;
+    align-items: center;
+}
+
+form {
+    padding: 0px;
+    padding-top: 40px;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.login-input[type="submit"] {
+    font-size: 20px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #575757;
+    border-color: #575757;
+}
+
+#wipeUsername,
+#wipePassword {
+    cursor:pointer;
+    display: none;
+}

@@ -9,7 +9,7 @@ const apiRouter = express.Router();
 
 apiRouter.route("/join/:id/idChecks").post(idCheck);
 apiRouter.route("/join/:id/emailChecks").post(emailCheck);
-apiRouter.route("/content/:id/likes").get(registerLikes);
+apiRouter.route("/content/:id/likes").all(protectorMiddleware).get(registerLikes);
 apiRouter.route("/content/:id([0-9a-f]{24})/comment").all(protectorMiddleware).post(createComment);
 apiRouter.route("/content/:id([0-9a-f]{24})/commentEdit").all(protectorMiddleware).post(commentEdit);
 apiRouter.route("/content/:id([0-9a-f]{24})/nestedComment").all(protectorMiddleware).post(createNestedComment);

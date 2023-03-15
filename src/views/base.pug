@@ -4,9 +4,10 @@ html(lang='ko')
         title #{pageTitle} | 흙타
         script(src="https://kit.fontawesome.com/0566d757d3.js", crossorigin="anonymous") 
         script(src="/client/js/searchSection.js")
-        link(rel="stylesheet", href="/client/css/search_bar.css") 
         link(rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css")
+        link(rel="stylesheet", href="/client/css/search_bar.css") 
         block css
+        
     body 
         div.top-black-line
         header(style="padding-top:0px; padding-bottom:10px;")
@@ -39,7 +40,7 @@ html(lang='ko')
                     input.search-bar(placeholder="관심있는 내용을 검색해보세요", type="text", name="keyword", required)
 
         main 
-            div
+            div.contentMain
                 block contentMain
             div.topicBackground
                 block contentSub

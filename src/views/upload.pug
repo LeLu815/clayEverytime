@@ -1,18 +1,35 @@
 extends base.pug
 
 block contentMain
-        form(method="POST", enctype="multipart/form-data")
-            select(name="contentType")
-                option(value="0") 게시판을 선택해 주세요.        
-                option(value="1") 흙당근
-                option(value="2") 비밀게시판
-                option(value="3") 정보공유
-            input(placeholder="제목", required, type="text", name="title")
-            label(for="image") 이미지 삽입
-            input(required, type="file", name="image", accept="image/*", id="image")
-            textarea(placeholder="내용을 기입해 주세요.", name="description", cols="10", rows="10", required, type="text",)
-            //- input(placeholder="Description", required, type="text", name="description")
+    div.upload-section
+        form(method="POST", enctype="multipart/form-data")#uploadForm
+            div.upload-upper-part
+                div.upload-text-part
+                    div.upload-text 
+                        span.first-text 게시글 
+                        span.second-text 업로드
+                    select(name="contentType", id="contentType")
+                        option(value="0") 게시판을 선택해 주세요.        
+                        option(value="1") 흙당근
+                        option(value="2") 비밀게시판
+                        option(value="3") 정보공유
+                    input(placeholder="제목", required, type="text", name="title", id="title")
+                    label(for="image", id="img-text") 이미지 삽입
+                    input(required, type="file", name="image", accept="image/*", id="image", onchange="readURL(this, setUrlAddress);")
+                div.upload-img-part 
+                    img(src="/uploads/no-image.png", id="preview")
 
-            input(type="submit", value="게시글 업로드")
+            textarea(placeholder="내용을 기입해 주세요.", name="description", cols="10", rows="10", required, type="text", id="description")
+            //- input(placeholder="Description", required, type="text", name="description")
+            div.submit-section
+                input(type="submit", value="게시글 업로드", id="submitBtn")
+                input(type="submit", value="작성 취소", id="cancelBtn", name="cancelBtn")
 
 block contentSub
+
+block css 
+    link(rel="stylesheet", href="/client/css/upload.css")
+
+block scripts
+    script(src="/client/js/uploadFront.js")
+

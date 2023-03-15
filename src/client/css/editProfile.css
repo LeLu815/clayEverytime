@@ -1,0 +1,16 @@
+
+#submitBtn {
+    margin-top: 30px;
+    background-color: black;
+    border-color: black;
+}
+
+.hr-tag {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.fa-unlock-keyhole {
+    color: rgb(226, 0, 0);
+    margin-right: 8px;
+}

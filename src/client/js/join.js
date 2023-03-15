@@ -31,6 +31,7 @@ email.addEventListener("keyup", async function () {
     if(url) {
         if (!validEmailCheck(internetMail)) {
             emailMsg.innerText = "올바른 이메일 주소를 입력해주세요."
+            emailMsg.className = "not-allowed-span";
             return;
         }
         const response = await fetch(url, {
@@ -40,13 +41,16 @@ email.addEventListener("keyup", async function () {
         
         if (data.isExistEmail !== null) {
             emailMsg.innerText = "이미 사용중인 이메일입니다."
+            emailMsg.className = "not-allowed-span";
             okayEmail = false;
         } else {
             emailMsg.innerText = "사용가능한 이메일입니다."
+            emailMsg.className = "okay-span";
             okayEmail = true;
         }          
     } else {
         emailMsg.innerText = "이메일을 입력하세요."
+        emailMsg.className = "not-allowed-span";
         okayEmail = false;
     }
     submitBtn.disabled = okayEmail && okayId && okPw ? false : true;
@@ -64,14 +68,17 @@ username.addEventListener("keyup", async function () {
         const data = await response.json();
 
         if (data.isExistId !== null) {
-            usernameMsg.innerText = "이미 사용중인 아이디입니다."
+            usernameMsg.innerText = "이미 사용중인 아이디입니다.";
+            usernameMsg.className = "not-allowed-span";
             okayId = false;
         } else {
-            usernameMsg.innerText = "사용가능한 아이디입니다."
+            usernameMsg.innerText = "사용가능한 아이디입니다.";
+            usernameMsg.className = "okay-span";
             okayId = true;
         }
     } else {
         usernameMsg.innerText = "아이디를 입력하세요.";
+        usernameMsg.className = "not-allowed-span";
         okayId = false;
     }
     submitBtn.disabled = okayEmail && okayId && okPw ? false : true;
@@ -83,7 +90,8 @@ password.addEventListener("keyup", function(){
 password2.addEventListener("keyup", function(){
     if (password2.value === passwordInnerText) {
         passwordCheck.style.visibility = "visible";
-        passwordCheck.innerText = "일치합니다."
+        passwordCheck.innerText = "일치합니다.";
+        passwordCheck.className = "okay-span";
         okPw = true;
         submitBtn.disabled = okayEmail && okayId && okPw ? false : true;
     } else if (password2.value === "") {
@@ -93,6 +101,7 @@ password2.addEventListener("keyup", function(){
     } else {
         passwordCheck.style.visibility = "visible";
         passwordCheck.innerText = "일치하지 않습니다."
+        passwordCheck.className = "not-allowed-span";
         okPw = false;
         submitBtn.disabled = okayEmail && okayId && okPw ? false : true;
     }
