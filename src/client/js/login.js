@@ -8,6 +8,7 @@ wipeUsername.addEventListener("click", function() {
         return;
     }
     document.getElementById("usernameInput").value = "";
+    document.getElementById("wipeUsername").style.display = "none";
 });
 
 wipePassword.addEventListener("click", function() {
@@ -16,6 +17,7 @@ wipePassword.addEventListener("click", function() {
         return;
     }
     document.getElementById("passwordInput").value = "";
+    document.getElementById("wipePassword").style.display = "none";
 });
 
 const usernameInput = document.getElementById("usernameInput");
